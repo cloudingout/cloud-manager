@@ -1,0 +1,24 @@
+Ejemplos de ejecución de query
+
+SELECT: 
+
+$database = new Database();
+$query = 'SELECT * FROM users';
+$query = $database->query($query);
+echo '<pre>'; print_r($query); echo '</pre>';
+
+INSERT: 
+
+$database = new Database();
+$query = "INSERT INTO users VALUES(:id, :name, :age)";
+$values = [
+  "id"   => null,
+  "name" => 'Cristhian',
+  "age"  => '22'
+];
+$query = $database->query($query, $values);
+echo '<pre>'; var_dump($query); echo '</pre>';
+
+INSERT INTO users_types(id, name, description) VALUES (null, 'admin', 'Administrador del sistema');
+
+INSERT INTO users(id, users_types_id, name, last_name, email, password, telephone, balance, token, expiration_token) VALUES (null, 1, 'Cristhian David', 'García Villada', 'davidg9404@gmail.com', '123456', '3103520651', 200, null, null);
