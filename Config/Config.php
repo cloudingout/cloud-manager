@@ -1,16 +1,22 @@
 <?php
 
+/**
+* Archivo de configuración
+* definimos drivers, host, puertos, etc...
+*
+*/
+
 return [
   
   'connections' => [
 
     'mysql' => [
       'driver'    => 'mysql', 
-      'host'      => 'localhost', 
+      'host'      => 'www.metin2renacer.com', 
       'port'      => 3306, 
       'database'  => 'cloud_manager', 
-      'username'  => 'root', 
-      'password'  => 'L4r4v3l*.', 
+      'username'  => 'admin', 
+      'password'  => 'Penagos258', 
       'charset'   => 'utf8', 
       'collation' => 'utf8_unicode_ci', 
       'prefix'    => '', 

@@ -3,13 +3,26 @@
 namespace Config;
 use \PDO;
 
+/** 
+* Archivo de conexión a la base de datos, se conecta a la base de datos, y realiza 
+* y consultas a través del método query
+*
+* @package database
+* @author Cristhian David García
+*/
 class Database
 {
   /**
   * Almacena la conexión a la base de datos
+  * @var $connection
   */
   protected $connection;
 
+  /** 
+  * Conexión a la base de datos
+  * 
+  * @return pdoObject: Conexión a la base de datos
+  */
   protected function connect()
   {
     if (!$settings = include 'config.php') throw new Exception("Error Processing Request");
@@ -36,6 +49,15 @@ class Database
       }
   }
 
+  /**
+  * Consultas a la base de datos(INSERT, SELECT, UPDATE & DELETE)
+  *
+  * @param $queryString - string: almacena el string SQL - requerido
+  * @param $values - array - Valores necesarios en caso de ser necesario, puede 
+  *        estar vacío o no dependiendo de la condición de $queryString
+  *
+  * @return $result - array || boolean
+  */
   public function query($queryString, $values = [])
   {
     $result = false;
