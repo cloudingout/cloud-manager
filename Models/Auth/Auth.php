@@ -38,9 +38,9 @@ class Auth extends Database implements IAuth
   }
 
   /**
-  * Actualiza el token y expirationToken cuando el usuario este autenticado 
+  * Actualiza el token y expiration_token cuando el usuario este autenticado 
   * 
-  * @param $user usuario al cual se le actualizará el token y el expirationToken
+  * @param $user usuario al cual se le actualizará el token y el expiration_token
   * @return void
   */
   public function authenticate($user)
@@ -102,6 +102,7 @@ class Auth extends Database implements IAuth
     $date = new DateTime();
 
     if ($expirationToken < $date) {
+      $this->destroy();
       throw new Exception('El usuario no esta autenticado');
     }
   }

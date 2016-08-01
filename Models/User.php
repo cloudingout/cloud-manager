@@ -86,4 +86,48 @@ class user
     }
 
   }
+
+  /**
+  * Agrega usuarios 
+  *
+  * @return boolean 
+  */
+  public function add()
+  {
+    $sql  = 'INSERT INTO  users (';
+    $sql .= '             id, ';
+    $sql .= '             users_types_id, ';
+    $sql .= '             name, ';
+    $sql .= '             last_name, ';
+    $sql .= '             email, ';
+    $sql .= '             password, ';
+    $sql .= '             telephone ';
+    $sql .= ') VALUES (';
+    $sql .= '             :id, ';
+    $sql .= '             :users_types_id, ';
+    $sql .= '             :name, ';
+    $sql .= '             :last_name, ';
+    $sql .= '             :email, ';
+    $sql .= '             :password, '; // encriptar password
+    $sql .= '             :telephone ';
+    $sql .= ')';
+
+    $values = [
+      'id'              => null, 
+      'users_types_id'  => $this->usersType,
+      'name'            => $this->name, 
+      'last_name'       => $this->lastName, 
+      'email'           => $this->email, 
+      'password'        => $this->password, 
+      'telephone'       => $this->telephone
+    ];
+
+    $query = $this->database->query($sql, $values);
+
+    if ($query) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
