@@ -25,7 +25,7 @@ class Database
   */
   protected function connect()
   {
-    if (!$settings = include 'config.php') throw new Exception("Error Processing Request");
+    if (!$settings = include 'Config.php') throw new Exception("Error Processing Request");
     
       $driver     = $settings['connections']['mysql']['driver'];
       $host       = $settings['connections']['mysql']['host'];
@@ -37,13 +37,12 @@ class Database
 
       try {
         return $this->connection = new PDO(
-                                        "mysql:host$host;
+                                        "mysql:host=$host;
                                         port=$port;
                                         dbname=$database",
                                         $username,
-                                        $password, [
-                                          PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES $charset"
-                                        ]);
+                                        $password
+                                        );
       } catch (PDOException $e) {
         echo 'Error, no se puede conectar a la base de datos ' . $e->getMessage();
       }

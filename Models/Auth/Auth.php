@@ -32,7 +32,7 @@ class Auth extends Database implements IAuth
   *
   * @return void
   */
-  private function __construct()
+  public function __construct()
   {
     $this->database = new Database();
   }
@@ -67,7 +67,13 @@ class Auth extends Database implements IAuth
 
       $values = ['token' => $token, 'expiration_token' => $expirationToken, 'id' => $user['id']];
 
-      $this->database->query($sql, $values);
+      $result = $this->database->query($sql, $values);
+
+      if ($result) {
+        return true;
+      } else {
+        return false;
+      }
 
     } catch (Exception $e) {
 
