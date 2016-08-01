@@ -5,7 +5,7 @@ namespace Config;
 /** 
 * Carga las vistas y crea objetos a través de la URL
 *
-* @package proyecto
+* @package cloud_manager
 * @author Cristhian David García
 *
 */
