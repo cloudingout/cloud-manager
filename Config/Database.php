@@ -7,7 +7,7 @@ use \PDO;
 * Archivo de conexión a la base de datos, se conecta a la base de datos, y realiza 
 * y consultas a través del método query
 *
-* @package database
+* @package Database
 * @author Cristhian David García
 */
 class Database
@@ -44,7 +44,7 @@ class Database
                                         $password
                                         );
       } catch (PDOException $e) {
-        echo 'Error, no se puede conectar a la base de datos ' . $e->getMessage();
+        die('Error, no se puede conectar a la base de datos ' . $e->getMessage());
       }
   }
 
@@ -55,7 +55,7 @@ class Database
   * @param $values - array - Valores necesarios en caso de ser necesario, puede 
   *        estar vacío o no dependiendo de la condición de $queryString
   *
-  * @return $result - array || boolean
+  * @return $result - array
   */
   public function query($queryString, $values = [])
   {
@@ -77,9 +77,11 @@ class Database
 
         if (!$statement->execute()) {
           print_r($statement->errorInfo());
+        } else {
+          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+          $result = (!empty($result)) ? $result : true;
         }
 
-        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $statement->closeCursor();
 
@@ -87,8 +89,6 @@ class Database
         echo 'Error en la ejecución: ' .$e->getMessage();
       }
     }
-    
     return $result;
   }
-
 }
