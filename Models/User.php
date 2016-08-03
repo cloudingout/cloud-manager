@@ -97,6 +97,7 @@ class user
   {
     $sql  = 'SELECT     a.id, ';
     $sql .= '           b.name AS user_type, ';
+    $sql .= '           a.status, ';
     $sql .= '           a.name, ';
     $sql .= '           a.last_name, ';
     $sql .= '           a.email, ';
