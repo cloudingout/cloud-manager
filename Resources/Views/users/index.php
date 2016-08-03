@@ -15,6 +15,7 @@
       <th>Correo Electrónico</th>
       <th>Contacto</th>
       <th>Saldo</th>
+      <th colspan="2">Opciones</th>
     </thead>
 
     <?php foreach ($data as $datos): ?>
@@ -25,6 +26,9 @@
       <td><?php echo $datos['email']; ?></td>
       <td><?php echo $datos['telephone']; ?></td>
       <td>$<?php echo $datos['balance']; ?> USD</td>
+      <td>
+        <a href="<?php echo URL; ?>users/update/<?php echo $datos['id']; ?>">Editar</a>
+      </td>
     </tr>
     <?php endforeach ?>
   </table>

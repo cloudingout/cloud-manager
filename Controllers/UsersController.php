@@ -56,4 +56,27 @@ class UsersController
       $this->user->add();
     }
   }
+
+  /**
+  * Recibe los datos enviados del formulario, los envía al módelo y este hace 
+  * la actualización de los datos del usuario
+  * 
+  * @return void
+  */
+  public function update($id)
+  {
+    if (!$_POST) {
+      $this->user->set('id', $id);
+      return $this->user->view();
+    } else {
+      $this->user->set('id', $id);
+      $this->user->set('name', $_POST['name']);
+      $this->user->set('lastName', $_POST['last-name']);
+      $this->user->set('email', $_POST['email']);
+      $this->user->set('telephone', $_POST['telephone']);
+
+      $this->user->update();
+      header('Location: ' . URL . 'users');
+    }
+  }
 }

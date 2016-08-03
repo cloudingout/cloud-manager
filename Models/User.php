@@ -16,7 +16,7 @@ class user
   * Campos de la base datos
   */
   private $id; 
-  public $usersType;
+  private $usersType;
   private $name;
   private $lastName;
   private $email;
@@ -103,7 +103,13 @@ class user
     $sql .= '           a.balance ';
     $sql .= 'FROM       users AS a ';
     $sql .= 'LEFT JOIN  users_types as b ON(b.id = a.users_types_id) ';
+
+    if (!empty($this->id)) {
+    $sql .= 'WHERE      a.id = :id ';
+    }
     $sql .= 'ORDER BY   a.id DESC ';
+
+    $values = ['id' => $this->id];
 
     $result = $this->database->query($sql, $values);
 
@@ -153,5 +159,33 @@ class user
     } else {
       return false;
     }
+  }
+
+  /**
+  * Actualización de datos de los usuarios
+  * 
+  * @return boolean
+  */
+  public function update()
+  {
+    $sql  = 'UPDATE users ';
+    $sql .= 'SET    name = :name, ';
+    $sql .= '       last_name = :last_name, ';
+    $sql .= '       email = :email, ';
+    $sql .= '       telephone = :telephone, ';
+    $sql .= '       update_at = NOW() ';
+    $sql .= 'WHERE  id = :id ';
+
+    $values = [
+      'name'      => $this->name, 
+      'last_name' => $this->lastName, 
+      'email'     => $this->email, 
+      'telephone' => $this->telephone, 
+      'id'        => $this->id 
+    ];
+
+    $result = $this->database->query($sql, $values);
+
+    return $result ? true : false;
   }
 }
