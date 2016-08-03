@@ -79,4 +79,19 @@ class UsersController
       header('Location: ' . URL . 'users');
     }
   }
+
+  /**
+  * Recibe los datos enviados a través de la URL y se los envía al modelo, el 
+  * cual se encargará de poner al usuario en estado inactivo o bloqueado.
+  * 
+  * @return void
+  */
+  public function lock($id)
+  {
+    $this->user->set('id', $id);
+    $this->user->set('status', '2');
+    $this->user->update();
+
+    header('Location: ' . URL . 'users');
+  }
 }

@@ -17,6 +17,7 @@ class user
   */
   private $id; 
   private $usersType;
+  private $status;
   private $name;
   private $lastName;
   private $email;
@@ -168,20 +169,25 @@ class user
   */
   public function update()
   {
-    $sql  = 'UPDATE users ';
-    $sql .= 'SET    name = :name, ';
-    $sql .= '       last_name = :last_name, ';
-    $sql .= '       email = :email, ';
-    $sql .= '       telephone = :telephone, ';
-    $sql .= '       update_at = NOW() ';
-    $sql .= 'WHERE  id = :id ';
+    $sql  = '   UPDATE users ';
+    if (!empty($this->id)) {
+      $sql .='  SET    status = :status ';
+    } else {  
+      $sql .= ' SET    name = :name, ';
+      $sql .= '        last_name = :last_name, ';
+      $sql .= '        email = :email, ';
+      $sql .= '        telephone = :telephone, ';
+      $sql .= '        update_at = NOW() ';
+    }
+      $sql .= ' WHERE  id = :id ';
 
     $values = [
       'name'      => $this->name, 
       'last_name' => $this->lastName, 
       'email'     => $this->email, 
       'telephone' => $this->telephone, 
-      'id'        => $this->id 
+      'id'        => $this->id, 
+      'status'    => $this->status 
     ];
 
     $result = $this->database->query($sql, $values);

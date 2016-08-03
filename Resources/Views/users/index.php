@@ -29,6 +29,9 @@
       <td>
         <a href="<?php echo URL; ?>users/update/<?php echo $datos['id']; ?>">Editar</a>
       </td>
+      <td>
+        <a href="<?php echo URL; ?>users/lock/<?php echo $datos['id']; ?>">Desactivar</a>
+      </td>
     </tr>
     <?php endforeach ?>
   </table>
