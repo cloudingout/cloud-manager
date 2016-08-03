@@ -41,7 +41,10 @@ class Database
                                         port=$port;
                                         dbname=$database",
                                         $username,
-                                        $password
+                                        $password,
+                                        array(
+                                          PDO::MYSQL_ATTR_INIT_COMMAND  => "SET NAMES $charset"
+                                        )
                                         );
       } catch (PDOException $e) {
         die('Error, no se puede conectar a la base de datos ' . $e->getMessage());
