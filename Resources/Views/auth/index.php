@@ -6,7 +6,7 @@
 </head>
 <body>
   <h1>Login</h1>
-  <form action="" method="post">
+  <form action="" method="POST">
     <input type="email" name="email"><br>
     <input type="password" name="password"> <br>
     <button type="submit" class="btn btn-success">Iniciar</button>

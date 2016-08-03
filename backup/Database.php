@@ -37,7 +37,7 @@ class Database
 
       try {
         return $this->connection = new PDO(
-                                        "$driver:host=$host;
+                                        "mysql:host=$host;
                                         port=$port;
                                         dbname=$database",
                                         $username,
@@ -55,7 +55,7 @@ class Database
   * @param $values - array - Valores necesarios en caso de ser necesario, puede 
   *        estar vacío o no dependiendo de la condición de $queryString
   *
-  * @return $result - array
+  * @return $result - array || boolean
   */
   public function query($queryString, $values = [])
   {
@@ -77,18 +77,17 @@ class Database
 
         if (!$statement->execute()) {
           print_r($statement->errorInfo());
-        } else {
-          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-          $result = (!empty($result)) ? $result : true;
         }
 
-
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($result);
         $statement->closeCursor();
 
       } catch (PDOException $e) {
-        echo 'Error en la ejecución: ' .$e->getMessage();
+        die('Error en la ejecución: ' .$e->getMessage());
       }
     }
     return $result;
   }
+
 }

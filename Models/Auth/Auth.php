@@ -69,7 +69,7 @@ class Auth extends Database implements IAuth
 
       $result = $this->database->query($sql, $values);
 
-      if ($result) {
+      if (!empty($result)) {
         return true;
       } else {
         return false;

@@ -16,7 +16,7 @@ class user
   * Campos de la base datos
   */
   private $id; 
-  private $usersType;
+  public $usersType;
   private $name;
   private $lastName;
   private $email;
@@ -79,10 +79,10 @@ class user
 
     $result = $this->database->query($sql, $values);
 
-    if (!$result) {
-      return ;
-    } else {
+    if (!empty($result)) {
       return $result;
+    } else {
+      return ;
     }
 
   }

@@ -49,10 +49,10 @@ class AuthController
 
       $result = $this->auth->authenticate($this->user->auth());
       
-      if (!empty($result)) {
-        echo 'Falso';
-      } else {
+      if ($result) {
         echo 'Autentico';
+      } else {
+        echo 'Falso';
       }
     }
   }
