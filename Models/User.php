@@ -88,6 +88,30 @@ class user
   }
 
   /**
+  * Selecciona los usuarios de la base de datos
+  * 
+  * @return array 
+  */
+  public function view()
+  {
+    $sql  = 'SELECT     a.id, ';
+    $sql .= '           b.name AS user_type, ';
+    $sql .= '           a.name, ';
+    $sql .= '           a.last_name, ';
+    $sql .= '           a.email, ';
+    $sql .= '           a.telephone, ';
+    $sql .= '           a.balance ';
+    $sql .= 'FROM       users AS a ';
+    $sql .= 'LEFT JOIN  users_types as b ON(b.id = a.users_types_id) ';
+    $sql .= 'ORDER BY   a.id DESC ';
+
+    $result = $this->database->query($sql, $values);
+
+    return (!empty($result)) ? $result : false;
+
+  }
+
+  /**
   * Agrega usuarios 
   *
   * @return boolean 
