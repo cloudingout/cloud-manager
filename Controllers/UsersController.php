@@ -86,17 +86,17 @@ class UsersController
   * 
   * @return void
   */
-  public function status($id)
+  public function changeStatus($id)
   {
     $this->user->set('id', $id);
     $result = $this->user->view();
 
     if ($result[0]['status'] === '1') {
       $this->user->set('status', '2');
-      $this->user->update();
+      $this->user->changeStatus();
     } else {
       $this->user->set('status', '1');
-      $this->user->update();
+      $this->user->changeStatus();
     }
       header('Location: ' . URL . 'users');
   }

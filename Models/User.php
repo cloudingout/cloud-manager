@@ -156,11 +156,7 @@ class user
 
     $query = $this->database->query($sql, $values);
 
-    if ($query) {
-      return true;
-    } else {
-      return false;
-    }
+    return ($query) ? true : false;
   }
 
   /**
@@ -170,17 +166,13 @@ class user
   */
   public function update()
   {
-    $sql  = '   UPDATE users ';
-    if (!empty($this->id)) {
-      $sql .='  SET    status = :status ';
-    } else {  
-      $sql .= ' SET    name = :name, ';
-      $sql .= '        last_name = :last_name, ';
-      $sql .= '        email = :email, ';
-      $sql .= '        telephone = :telephone, ';
-      $sql .= '        update_at = NOW() ';
-    }
-      $sql .= ' WHERE  id = :id ';
+    $sql  = 'UPDATE users ';
+    $sql .= 'SET    name = :name, ';
+    $sql .= '       last_name = :last_name, ';
+    $sql .= '       email = :email, ';
+    $sql .= '       telephone = :telephone, ';
+    $sql .= '       update_at = NOW() ';
+    $sql .= 'WHERE  id = :id ';
 
     $values = [
       'name'      => $this->name, 
@@ -189,6 +181,28 @@ class user
       'telephone' => $this->telephone, 
       'id'        => $this->id, 
       'status'    => $this->status 
+    ];
+
+    $result = $this->database->query($sql, $values);
+
+    return $result ? true : false;
+  }
+
+  /**
+  * Cambiar estado del usuario
+  * 
+  * @return boolean
+  */
+  public function changeStatus()
+  {
+    $sql  = 'UPDATE users ';
+    $sql .= 'SET    status = :status, ';
+    $sql .= '       update_at = NOW() ';
+    $sql .= 'WHERE  id = :id ';
+
+    $values = [
+      'status' => $this->status, 
+      'id'     => $this->id
     ];
 
     $result = $this->database->query($sql, $values);

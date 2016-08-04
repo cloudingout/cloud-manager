@@ -128,4 +128,58 @@ class VirtualMachinePlan
 
     return ($query) ? true : false;
   }
+
+  /**
+  * Actualización de datos de los vm_plans
+  * 
+  * @return boolean
+  */
+  public function update()
+  {
+    $sql  = '   UPDATE vm_plans ';
+    $sql .= ' SET    name = :name, ';
+    $sql .= '        processors = :processors, ';
+    $sql .= '        ram = :ram, ';
+    $sql .= '        hard_disk = :hard_disk, ';
+    $sql .= '        price = :price, ';
+    $sql .= '        update_at = NOW() ';
+    $sql .= ' WHERE  id = :id ';
+
+    $values = [
+      'name'        => $this->name, 
+      'processors'  => $this->processors, 
+      'ram'         => $this->ram, 
+      'hard_disk'   => $this->hardDisk, 
+      'price'       => $this->price,
+      'id'          => $this->id, 
+      'status'      => $this->status 
+    ];
+
+    $result = $this->database->query($sql, $values);
+
+    return $result ? true : false;
+  }
+
+  /**
+  * Cambiar el estado de vm_plans 
+  *
+  * @return boolean
+  */
+  public function changeStatus()
+  {
+    $sql  = 'UPDATE vm_plans ';
+    $sql .= 'SET    status = :status, ';
+    $sql .= '       update_at = NOW() ';
+    $sql .= 'WHERE  id = :id ';
+
+    $values = [
+      'status' => $this->status, 
+      'id'     => $this->id
+    ];
+
+    $result = $this->database->query($sql, $values);
+
+    return $result ? true : false;
+  }
+
 }

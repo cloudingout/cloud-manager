@@ -31,9 +31,9 @@
       </td>
       <td>
       <?php if ($datos['status'] == 1): ?>
-        <a href="<?php echo URL; ?>users/status/<?php echo $datos['id']; ?>">Desactivar</a>
+        <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Desactivar</a>
       <?php else: ?>
-        <a href="<?php echo URL; ?>users/status/<?php echo $datos['id']; ?>">Activar</a>
+        <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Activar</a>
       <?php endif ?>
       </td>
     </tr>

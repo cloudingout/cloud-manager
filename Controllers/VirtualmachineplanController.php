@@ -57,4 +57,49 @@ class VirtualMachinePlanController
     }
   }
 
+  /**
+  * Recibe los datos enviados del formulario, los envía al módelo y este hace 
+  * la actualización de los datos del vm_plans
+  * 
+  * @return void
+  */
+  public function update($id)
+  {
+    $this->vm->set('id', $id);
+
+    if (!$_POST) {
+      return $this->vm->view();
+    } else {
+      $this->vm->set('name', $_POST['name']);
+      $this->vm->set('processors', $_POST['cpu']);
+      $this->vm->set('ram', $_POST['ram']);
+      $this->vm->set('hardDisk', $_POST['hard-disk']);
+      $this->vm->set('price', $_POST['price']);
+
+      $this->vm->update();
+      header('Location: ' . URL . 'virtualmachineplan');
+    }
+  }
+
+  /**
+  * Recibe los datos enviados a través de la URL y se los envía al modelo, el 
+  * cual se encargará de poner al usuario en estado inactivo o bloqueado.
+  * 
+  * @return void
+  */
+  public function changeStatus($id)
+  {
+    $this->vm->set('id', $id);
+    $result = $this->vm->view();
+
+    if ($result[0]['status'] === '1') {
+      $this->vm->set('status', '2');
+      $this->vm->changeStatus();
+    } else {
+      $this->vm->set('status', '1');
+      $this->vm->changeStatus();
+    }
+      header('Location: ' . URL . 'virtualmachineplan');
+  }
+
 }
