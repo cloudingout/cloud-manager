@@ -19,6 +19,16 @@ class VirtualMachinePlanController
   */
   private $vm;
 
+  /**
+  * Recibe los datos del módelo y los envía a la vista del usuario
+  * 
+  * @return array
+  */
+  public function index()
+  {
+    return $this->vm->view();
+  }
+
   /** 
   * Constructor - Obtiene el módelo VirtualMachinePlan
   * @return void
