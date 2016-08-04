@@ -70,7 +70,7 @@ class VirtualMachinePlan
   */
   public function add()
   {
-    $sql  = 'INSERT INTO  users (';
+    $sql  = 'INSERT INTO  vm_plans (';
     $sql .= '             id, ';
     $sql .= '             name, ';
     $sql .= '             processors, ';
