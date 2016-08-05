@@ -46,13 +46,34 @@ class Bootstrap
 
     // Cargamos las vistas 
     $url = ROOT . '../Resources/Views' . DS . strtolower($request->getController()) . DS . $request->getMethod() . '.php';
+    $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.php';
 
     if (is_readable($url)) {
-      require $url;
+      self::loadTwig($fileSystem, $data, $request->getMethod());
+      // require $url;
     } else {
       // Definimos una vista en caso de que no se encuentre la URL
       $notFound = ROOT . '../Resources/Views/errors' . DS . '404.php';
       require $notFound;
     }
+  }
+
+  /**
+  * Carga de motor de plantillas Twig
+  */
+  public function loadTwig($fileSystem, $data, $method)
+  {
+    require_once ROOT . '..' . DS . 'vendor' . DS . 'lib' . DS . 'Twig' . DS . 'Autoloader.php';
+    \Twig_Autoloader::register();
+
+    $urlTemplate = ROOT . '..' . DS . 'Resources' . DS . 'Views';
+
+    $loader = new \Twig_Loader_Filesystem($urlTemplate);
+    $twig = new \Twig_Environment($loader);
+
+    echo $twig->render($fileSystem, array(
+      'data'    => $data, 
+      'method'  => $method
+    ));
   }
 }

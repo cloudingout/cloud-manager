@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Usuarios</title>
-</head>
-<body>
-  <!-- Mostrar los usuarios -->
+{% extends 'index.html' %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}  
   <h2>Usuarios</h2>
   <table border="1">
     <thead>
@@ -18,26 +13,25 @@
       <th colspan="2">Opciones</th>
     </thead>
 
-    <?php foreach ($data as $datos): ?>
-    <tr>
-      <td><?php echo $datos['id']; ?></td>
-      <td><?php echo $datos['user_type']; ?></td>
-      <td><?php echo $datos['name']. ' ' . $datos['last_name']; ?></td>
-      <td><?php echo $datos['email']; ?></td>
-      <td><?php echo $datos['telephone']; ?></td>
-      <td>$<?php echo $datos['balance']; ?> USD</td>
-      <td>
-        <a href="<?php echo URL; ?>users/update/<?php echo $datos['id']; ?>">Editar</a>
-      </td>
-      <td>
-      <?php if ($datos['status'] == 1): ?>
-        <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Desactivar</a>
-      <?php else: ?>
-        <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Activar</a>
-      <?php endif ?>
-      </td>
-    </tr>
-    <?php endforeach ?>
+    {% for user in data %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.user_type }}</td>
+        <td>{{ user.last_name}}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.telephone }}</td>
+        <td>$ {{ user.balance }} USD</td>
+        <td>
+          <a href="<?php echo URL; ?>users/update/<?php echo $datos['id']; ?>">Editar</a>
+        </td>
+        <td>
+        <?php if ($datos['status'] == 1): ?>
+          <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Desactivar</a>
+        <?php else: ?>
+          <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Activar</a>
+        <?php endif ?>
+        </td>
+      </tr>
+    {% endfor %}
   </table>
-</body>
-</html>
+{% endblock %}
