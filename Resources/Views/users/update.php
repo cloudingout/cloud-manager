@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Actualización de datos</title>
-</head>
-<body>
-  <h2>Actualización de datos de <?php echo $data[0]['name'] . ' ' . $data[0]['last_name']; ?></h2>
+{% extends 'index.html' %}
+{% block title %}Usuarios - Actualizar{% endblock %}
+{% block content %}
+  <h2>Actualización de datos de {{ data[0]['name'] }} {{ data[0]['last_name'] }}</h2>
   <form action="" method="POST">
     <label for="name">Nombres: </label>
     <input type="text" name="name" id="name" value="<?php echo $data[0]['name']; ?>"> <br>
@@ -19,3 +15,4 @@
   </form>
 </body>
 </html>
+{% endblock %}

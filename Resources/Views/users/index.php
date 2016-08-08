@@ -1,6 +1,9 @@
 {% extends 'index.html' %}
+
 {% block title %}Usuarios{% endblock %}
-{% block content %}  
+
+{% block content %}
+
   <h2>Usuarios</h2>
   <table border="1">
     <thead>
@@ -22,14 +25,15 @@
         <td>{{ user.telephone }}</td>
         <td>$ {{ user.balance }} USD</td>
         <td>
-          <a href="<?php echo URL; ?>users/update/<?php echo $datos['id']; ?>">Editar</a>
+          <a href="{{ URL }}users/update/{{ user.id }}">Editar</a>
         </td>
         <td>
-        <?php if ($datos['status'] == 1): ?>
-          <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Desactivar</a>
-        <?php else: ?>
-          <a href="<?php echo URL; ?>users/changeStatus/<?php echo $datos['id']; ?>">Activar</a>
-        <?php endif ?>
+        {% if user.status == 1 %}
+          <a href="{{ URL }}users/changeStatus/{{ user.id }}">Desactivar</a>
+        {% else %}
+          <a href="{{ URL }}users/changeStatus/{{ user.id }}">Activar</a>
+        {% endif %}
+        
         </td>
       </tr>
     {% endfor %}

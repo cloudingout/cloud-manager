@@ -6,7 +6,7 @@ namespace Config;
 * Obtiene la URL y a través de ella se asignan los controladores, métodos 
 * y argumentos (si los hay) 
 *
-* @package cloud_manager
+* @package Request
 * @author Cristhian David García
 */
 
@@ -46,6 +46,11 @@ class Request
       $url = explode('/', $url); 
       $url = array_filter($url);
 
+      #parte que se agrego al codigo problema index vacio
+      if ($_GET['url'] == '/'){
+        $url[0] = 'Auth';
+      }
+
       if ($url[0] == 'index.php') {
         $this->controller = 'Auth';
       } else {
@@ -59,6 +64,7 @@ class Request
       }
 
       $this->argument = $url;
+      
     } else {
       $this->controller = 'Auth';
       $this->method = 'index';

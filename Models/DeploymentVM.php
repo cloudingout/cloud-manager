@@ -17,10 +17,6 @@ class DeploymentVM
   private $id;
   private $usersID;
   private $VMPlansID;
-  private $name;
-  private $processors;
-  private $ram;
-  private $hardDisk;
   private $expireTime;
 
   /**
@@ -41,6 +37,31 @@ class DeploymentVM
   }
 
   /**
+  * Asigna valor al atributo de la clase dado por el parámetro $content
+  *
+  * @param $attribute hace referencia al atributo de la clase
+  * @param $content hace referencia al contenido que se le asignará a el atributo 
+  *        seleccionado
+  *
+  * @return void
+  */
+  public function set($attribute, $content)
+  {
+    $this->$attribute = $content;
+  }
+
+  /**
+  * Obtiene el atributo de la clase
+  *
+  * @param $attribute atributo de la clase
+  * @return void
+  */
+  public function get($attribute)
+  {
+    return $this->$attribute;
+  }
+
+  /**
   * Creación o despliegue de una maquina virtual en la base de datos
   *
   *
@@ -52,19 +73,11 @@ class DeploymentVM
     $sql .= '             id, ';
     $sql .= '             users_id, ';
     $sql .= '             vm_plans_id, ';
-    $sql .= '             name, ';
-    $sql .= '             processors, ';
-    $sql .= '             ram, ';
-    $sql .= '             hard_disk, ';
     $sql .= '             expiry_time ';
     $sql .= ') VALUES ( ';
     $sql .= '             :id, ';
     $sql .= '             :users_id, ';
     $sql .= '             :vm_plans_id, ';
-    $sql .= '             :name, ';
-    $sql .= '             :processors, ';
-    $sql .= '             :ram, ';
-    $sql .= '             :hard_disk, ';
     $sql .= '             :expiry_time ';
     $sql .= ')';
 
@@ -72,16 +85,12 @@ class DeploymentVM
       'id'          => $this->id, 
       'users_id'    => $this->usersID, 
       'vm_plans_id' => $this->VMPlansID, 
-      'name'        => $this->name, 
-      'processors'  => $this->processors, 
-      'ram'         => $this->ram, 
-      'hard_disk'   => $this->hardDisk, 
       'expiry_time' => $this->expireTime
     ];
 
     $result = $this->database->query($sql, $values);
 
-    return (!empty($result)) ? $result : false;
+    return ($result) ? true : false;
   }
 
 }

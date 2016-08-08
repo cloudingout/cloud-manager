@@ -73,7 +73,8 @@ class Bootstrap
 
     echo $twig->render($fileSystem, array(
       'data'    => $data, 
-      'method'  => $method
+      'method'  => $method, 
+      'assets'  => ASSETS
     ));
   }
 }

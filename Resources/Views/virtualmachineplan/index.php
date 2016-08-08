@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Usuarios</title>
-</head>
-<body>
-  <!-- Mostrar los usuarios -->
-  <h2>Usuarios</h2>
+{% extends 'index.html' %}
+
+{% block title %} Virtual machine {% endblock %}
+
+{% block content %}
+    
+  <h2>Maquinas virtuales</h2>
   <table border="1">
     <thead>
       <th>UID</th>
@@ -18,26 +16,25 @@
       <th colspan="2">Opciones</th>
     </thead>
 
-    <?php foreach ($data as $datos): ?>
+    {% for vm in data %}
     <tr>
-      <td><?php echo $datos['id']; ?></td>
-      <td><?php echo $datos['name']; ?></td>
-      <td><?php echo $datos['processors']; ?></td>
-      <td><?php echo $datos['ram']; ?></td>
-      <td><?php echo $datos['hard_disk']; ?></td>
-      <td><?php echo $datos['price']; ?></td>
+      <td>{{ vm.id }}</td>
+      <td>{{ vm.name }}</td>
+      <td>{{ vm.processors }}</td>
+      <td>{{ vm.ram }}</td>
+      <td>{{ vm.hard_disk }}</td>
+      <td>{{ vm.price }}</td>
       <td>
-        <a href="<?php echo URL; ?>virtualmachineplan/update/<?php echo $datos['id']; ?>">Editar</a>
+        <a href="{{ URL }}virtualmachineplan/update/{{ vm.id }}">Editar</a>
       </td>
       <td>
-      <?php if ($datos['status'] == 1): ?>
-        <a href="<?php echo URL; ?>virtualmachineplan/changeStatus/<?php echo $datos['id']; ?>">Desactivar</a>
-      <?php else: ?>
-        <a href="<?php echo URL; ?>virtualmachineplan/changeStatus/<?php echo $datos['id']; ?>">Activar</a>
-      <?php endif ?>
+      {% if vm.status == 1 %}
+        <a href="{{ URL }}virtualmachineplan/changeStatus/{{ vm.id }}">Desactivar</a>
+      {% else %}
+        <a href="{{ URL }}virtualmachineplan/changeStatus/{{ vm.id }}">Activar</a>
+      {% endif %}
       </td>
     </tr>
-    <?php endforeach ?>
+    {% endfor %}
   </table>
-</body>
-</html>
+{% endblock %}
