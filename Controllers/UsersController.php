@@ -43,7 +43,7 @@ class UsersController
   * 
   * @return void
   */
-  public function add()
+  public function signUp()
   {
     if ($_POST) {
       $this->user->set('usersType', $_POST['user-type']);
