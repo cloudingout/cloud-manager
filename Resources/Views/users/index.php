@@ -31,7 +31,7 @@
                       <td>{{ user.name }} {{ user.last_name}}</td>
                       <td>{{ user.email }}</td>
                       <td>{{ user.telephone }}</td>
-                      <td>$ {{ user.balance }} USD</td>
+                      <td>${{ user.balance }} USD</td>
                       <td>
                         <a href="{{ URL }}users/update/{{ user.id }}" title="Editar"><i class="material-icons">mode_edit</i></a>
                       </td>

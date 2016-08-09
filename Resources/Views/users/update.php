@@ -1,12 +1,14 @@
 {% extends 'index.html' %}
+
 {% block title %}Usuarios - Actualizar{% endblock %}
+
 {% block content %}
   <div class="row center-xs no-margin">
-    <div class="col-xs-12 col-sm-11 col-md-8">
+    <div class="col-xs-12 col-sm-11 col-md-10">
       <div class="box">
         <div class="card large-padding">
           <div class="row center-xs">
-            <div class="col-xs-12 col-md-11 text-left">
+            <div class="col-xs-12 col-md-8 text-left">
               <div class="box">
                 <form action="" method="POST">
                   <h1 class="title no-margin">Actualización de datos de {{ data[0]['name'] }} {{ data[0]['last_name'] }}</h1>
