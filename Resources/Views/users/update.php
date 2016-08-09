@@ -29,7 +29,7 @@
                     <input type="text" name="telephone" id="telephone" value="{{ data[0]['telephone'] }}">
                   </div>
                   <div class="input-field col-xs-12 top">
-                    <button class="btn waves-effect waves-light indigo" type="submit" name="actualizar">
+                    <button class="btn waves-effect waves-light indigo" type="submit" name="update">
                       Actualizar
                     </button>
                   </div>
@@ -42,6 +42,4 @@
       </div>
     </div>
   </div>
-</body>
-</html>
 {% endblock %}
