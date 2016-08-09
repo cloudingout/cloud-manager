@@ -2,20 +2,54 @@
 
 {% block title %} Autenticación {% endblock %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col s12 m10 offset-m1">
-    <div class="card medium">
-      <div class="card-content">
-      <h2 card-title>Inicia sesión</h2>
-      <form action="" method="POST">
-        <input type="email" name="email"><br>
-        <input type="password" name="password"> <br>
-        <button type="submit" class="btn btn-success">Iniciar</button>
-      </form>
+  <div class="row center-xs no-margin">
+    <div class="col-xs-12 col-sm-11 col-md-8">
+      <div class="box">
+        <div class="card large-padding">
+          <div class="row center-xs">
+            <div class="col-xs-12 col-md-11 text-left">
+              <div class="box">
+                <form action="" method="POST" accept-charset="UTF-8">
+                  <h1 class="title no-margin text-center">Inicia sesión</h1>
+                    <div class="input-field col-xs-12 col-sm-6 col-sm-offset-3 top">
+                      <i class="material-icons prefix">account_circle</i>
+                      <label for="email">Correo Electrónico</label>
+                      <input id="email" type="email" name="email" class="validate">
+                    </div>
+                    <div class="input-field col-xs-12 col-sm-6 col-sm-offset-3">
+                      <i class="material-icons prefix">vpn_key</i>
+                      <label for="password">Contraseña</label>
+                      <input id="password" type="password" name="password" class="validate">
+                    </div>
+                    <div class="input-field col-xs-12 text-center">
+                      <button class="btn waves-effect waves-light indigo" type="submit" name="iniciar">
+                        Iniciar 
+                        <i class="material-icons right">cloud</i> 
+                      </button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="bottom-space">
+            <div class="row top-space center-xs">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <p>¿Aún no estas registrado(a)?</p>
+                  <a href="users/signup">Crea una cuenta</a>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="box">
+                  <p>¿Olvidaste tu contraseña?</p>
+                  <a href="">Recuperar contraseña</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
   </div>
-</div>
 {% endblock %}
