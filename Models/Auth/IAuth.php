@@ -10,9 +10,9 @@ namespace Models\Auth;
 */
 interface IAuth 
 {
-  public function authenticate($user);
-  public function isAuthenticate();
-  public function destroy();
-  public function user();
-  public function tokenUser();
+  public function authenticate();
+  private function checkCredentials($uemail, $dbemail, $upassword, $dbpassword);
+  public function isLoggedIn();
+  public function redirect($url)
+  public function logout();
 }

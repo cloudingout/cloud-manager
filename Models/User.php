@@ -15,8 +15,7 @@ class user
   /**
   * Campos de la base datos
   */
-  private $id; 
-  private $usersType;
+  private $id;
   private $status;
   private $name;
   private $lastName;
@@ -75,17 +74,24 @@ class user
   */
   public function auth()
   {
-    $sql = 'SELECT id, email, password FROM users WHERE email = :email AND password = :password ';
-    $values = ['email' => $this->email, 'password' => $this->password];
+    $sql = 'SELECT id, name, last_name, email, password FROM users WHERE email = :email AND password = :password ';
+    $values = [
+      'email'     => $this->email, 
+      'password'  => $this->password
+    ];
 
     $result = $this->database->query($sql, $values);
 
     if (!empty($result)) {
+      $_SESSION['id']         = $result[0]['id'];
+      $_SESSION['name']       = $result[0]['name'];
+      $_SESSION['last_name']  = $result[0]['last_name'];
       return $result;
+
     } else {
       return ;
+      die();
     }
-
   }
 
   /**
@@ -146,7 +152,7 @@ class user
 
     $values = [
       'id'              => null, 
-      'users_types_id'  => $this->usersType,
+      'users_types_id'  => 2,
       'name'            => $this->name, 
       'last_name'       => $this->lastName, 
       'email'           => $this->email, 

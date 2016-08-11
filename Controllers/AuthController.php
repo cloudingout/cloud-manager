@@ -43,16 +43,23 @@ class AuthController
   */
   public function index()
   {
-    if ($_POST) {
-      $this->user->set('email', $_POST['email']);
-      $this->user->set('password', $_POST['password']);
+    if ($this->auth->isLoggedIn()) {
 
-      $result = $this->auth->authenticate($this->user->auth());
-      
-      if ($result) {
-        echo 'Autentico';
-      } else {
-        echo 'Falso';
+      // TODO...
+      // el usuario no esta logeado, redigirlo al home
+      echo 'no logeo';
+    } else {
+      if (isset($_POST['login'])) {
+        $this->auth->set('email', $_POST['email']);
+        $this->auth->set('password', $_POST['password']);
+
+        $authenticate = $this->auth->authenticate();
+
+        if ($authenticate) {
+          $this->auth->redirect(URL . "users");
+        } else {
+          $this->auth->redirect(URL . "errors");
+        }
       }
     }
   }

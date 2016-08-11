@@ -2,8 +2,9 @@
 namespace Models\Auth;
 use Config\Database as Database;
 use \Exception;
-use \DateInterval;
 use \DateTime;
+use \PDO;
+session_start();
 
 /** 
 * Autenticación de usuarios: contiene métodos y lógica necesaria para autenticar 
@@ -19,13 +20,19 @@ class Auth extends Database implements IAuth
   * @var $database
   */
   private $database;
+
   /**
-  * Agrega una hora a la hora actual, para saber el tiempo de expiración de la 
-  * sesión
-  *
-  * @var $expirationTime
+  * Almacena el email del usuario, enviado por el form 
+  * 
+  * @var string $email
   */
-  private $expirationTime = 'PT1H';
+  private $email;
+
+  /**
+  * Almacena el password del usuario, enviado por el form
+  * @var string $password
+  */
+  private $password;
 
   /**
   * Crea el objeto database, el cual tiene la conexión a la base de datos
@@ -38,130 +45,123 @@ class Auth extends Database implements IAuth
   }
 
   /**
+  * Asigna valor al atributo de la clase dado por el parámetro $content
+  *
+  * @param $attribute hace referencia al atributo de la clase
+  * @param $content hace referencia al contenido que se le asignará a el atributo 
+  *        seleccionado
+  *
+  * @return void
+  */
+  public function set($attribute, $content)
+  {
+    $this->$attribute = $content;
+  }
+
+  /**
+  * Obtiene el atributo de la clase
+  *
+  * @param $attribute atributo de la clase
+  * @return void
+  */
+  public function get($attribute)
+  {
+    return $this->$attribute;
+  }
+
+  /**
   * Actualiza el token y expiration_token cuando el usuario este autenticado 
   * 
   * @param $user usuario al cual se le actualizará el token y el expiration_token
   * @return void
   */
-  public function authenticate($user)
+  public function authenticate()
   {
-    $user = $user[0];
-
-    if (empty($user)) {
-      return false;
-    } elseif (empty($user['id'])) {
-      return false;
-    }
-
-    $date = new DateTime();
-    $date->add(new DateInterval($this->expirationTime));
-
     try {
-      $sql  = 'UPDATE users ';
-      $sql .= 'SET    token = :token, ';
-      $sql .= '       expiration_token = :expiration_token ';
-      $sql .= 'WHERE  id = :id ';
+      $sql  = "SELECT id, "; 
+      $sql .= "       name, ";
+      $sql .= "       last_name, ";
+      $sql .= "       email, ";
+      $sql .= "       password ";
+      $sql .= "FROM   users ";
+      $sql .= "WHERE  email = :email ";
+      $sql .= "AND    password = :password ";
 
-      $token = $this->tokenUser();
-      $expirationToken = $date->format('Y-m-d h:i:s');
+      $values = [
+        'email'     => $this->email, 
+        'password'  => $this->password
+      ];
 
-      $values = ['token' => $token, 'expiration_token' => $expirationToken, 'id' => $user['id']];
+      $user = $this->database->query($sql, $values);
 
-      $result = $this->database->query($sql, $values);
+      if (count($user) > 0) {
 
-      if (!empty($result)) {
-        return true;
-      } else {
-        return false;
+        if ($this->checkCredentials($this->email, $user[0]['email'], $this->password, $user[0]['password'])) {
+          $_SESSION['user_id'] = $user[0]['id'];
+          $_SESSION['user'] = $user[0]['name'];
+
+          return true;
+        } else {
+          return false;
+        }
+
       }
 
-    } catch (Exception $e) {
-
-      return $e->getMessage();
-      die();
+    } catch (PDOException $e) {
+      echo $e->getMessage();
     }
   }
 
-  /**
-  * Comprueba la autenticación del usuario
-  * 
-  * @return void
-  */
-  public function isAuthenticate()
-  {
-    $sql = 'SELECT * FROM users WHERE token = :token ';
-    $values = ['token' => $this->tokenUser()];
-
-    $result = $this->database->query($sql, $values);
-
-    if (!$result) {
-      throw new Exception('El usuario no esta autenticado');
-    }
-
-    $expirationToken = new DateTime($result['expiration_token']);
-    $date = new DateTime();
-
-    if ($expirationToken < $date) {
-      $this->destroy();
-      throw new Exception('El usuario no esta autenticado');
-    }
-  }
-
-  /**
-  * Actualiza los campos token, expiration_token dejandolos en null
+  /** 
+  * Verifica si las credenciales del usuario que intenta ingresar coinciden 
+  * con los datos registrados 
   *
-  * @return void
+  * @access private
+  * @return boolean
   */
-  public function destroy()
+  private function checkCredentials($uemail, $dbemail, $upassword, $dbpassword)
   {
-    $this->isAuthenticate();
-
-    $sql  = 'UPDATE users ';
-    $sql .= 'SET    token = null, ';
-    $sql .= '       expiration_token = null ';
-    $sql .= 'WHERE  token = :token ';
-
-    $values = ['token'  => $this->tokenUser()];
-    $this->pdo->query($sql, $values);
+    return $uemail == $dbemail && $upassword == $dbpassword;
   }
 
   /**
-  * Identifica el usuario logeado, a través del token
+  * Verifica si el usuario esta logeado o no
   *
-  * @return $result array datos correspondiente al usuario logeado
+  * @access public
+  * @return boolean 
   */
-  public function user()
+  public function isLoggedIn()
   {
-    $this->isAuthenticate();
-
-    $sql = 'SELECT * FROM users WHERE token = :token';
-    $values = ['token'  => $this->tokenUser()];
-    $result = $this->pdo->query($sql, $values);
-
-    return $result;
-  }
-
-  /**
-  * Genera el token para el usuario
-  * 
-  * @return string token generado
-  */
-  public function tokenUser()
-  {
-    $token = __SECRET_KEY__;
-
-    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-      $token .= $_SERVER['HTTP_CLIENT_IP'];
-    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-      $token .= $_SERVER['HTTP_X_FORWARDED_FOR'];
+    if (isset($_SESSION['user'])) {
+      return true;
     } else {
-      $token .= $_SERVER['REMOTE_ADDR'];
+      return false;
     }
+  }
 
-    $token .= $_SERVER['HTTP_USER_AGENT'];
-    $token .= gethostname();
+  /** 
+  * Redirecciona al usuario a una vista
+  * 
+  * @access public
+  * @return void
+  */
+  public function redirect($url)
+  {
+    header("Location: $url");
+  }
 
-    return sha1($token);
+  /**
+  * Cierra la sesión del usuario
+  * 
+  * @access public
+  * @return boolean
+  */
+  public function logout()
+  {
+    session_destroy();
+    unset($_SESSION['user_id']);
+    unset($_SESSION['user']);
+    return true;
   }
 
 }

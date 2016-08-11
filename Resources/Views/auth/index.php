@@ -22,7 +22,7 @@
                       <input id="password" type="password" name="password" class="validate">
                     </div>
                     <div class="input-field col-xs-12 text-center">
-                      <button class="btn waves-effect waves-light indigo" type="submit" name="iniciar">
+                      <button class="btn waves-effect waves-light indigo" type="submit" name="login" value="xx">
                         Iniciar 
                         <i class="material-icons right">cloud</i> 
                       </button>

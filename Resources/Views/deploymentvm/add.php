@@ -28,8 +28,8 @@
                     </select>
                     <label for="vm-plans">Planes</label>
                   </div>
+                  <label for="expiry-time">Fecha de expiración</label>
                   <div class="input-field col-xs-12 top">
-                    <label for="expiry-time">Fecha de expiración</label>
                     <input type="date" name="expiry-time" id="expiry-time" class="datepicker">
                   </div>
                   <div class="input-field col-xs-12 top">
