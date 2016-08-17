@@ -11,8 +11,7 @@ namespace Models\Auth;
 interface IAuth 
 {
   public function authenticate();
-  private function checkCredentials($uemail, $dbemail, $upassword, $dbpassword);
   public function isLoggedIn();
-  public function redirect($url)
+  public function redirect($url);
   public function logout();
 }
