@@ -1,0 +1,26 @@
+!!! 5
+%html{class: "no-js", lang: "es"}
+  %head
+    %meta{charset: "utf8"}
+    %title Cloud Manager
+    %meta{name: "description", content: "Cloud manager, administración de servidores"}
+    %meta{:name => "viewport", :content => "width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"}/
+    %link{rel: "stylesheet", href:"http://server3.metin2renacer.com/assets/css/normalize.css"}
+    %link{rel: "stylesheet", href:"http://server3.metin2renacer.com/assets/css/flexboxgrid.css"}
+    %link{rel: "stylesheet", href:"http://server3.metin2renacer.com/assets/css/main.css"}
+    %script{src:"http://server3.metin2renacer.com/assets/js/modernizr.min.js"}
+  %body
+    ="<!--[if lt IE 9]>"
+    %p{class: "browserupgrade"}
+      Estas usando un navegador 
+      %strong desactualizado 
+      Por favor 
+      %a{href: "http://browsehappy.com/"}
+        actualiza tu navegador 
+      para una mejor experiencia
+    ="<![endif]-->"
+
+    .video-container
+      %video{autoplay: true, loop: true, width: "120", height: "720", poster: "http://server3.metin2renacer.com/videos/imgs/Aloha-Mundo.jpg"}
+        %source{src: "http://server3.metin2renacer.com/videos/mp4/Aloha-Mundo.mp4", type: "video/mp4"}
+        %source{src: "http://server3.metin2renacer.com/videos/webm/Aloha-Mundo.webm", type: "video/webm"}
