@@ -48,11 +48,11 @@ class Request
 
       #parte que se agrego al codigo problema index vacio
       if ($_GET['url'] == '/'){
-        $url[0] = 'Auth';
+        $url[0] = 'Home';
       }
 
       if ($url[0] == 'index.php') {
-        $this->controller = 'Auth';
+        $this->controller = 'Home';
       } else {
         $this->controller = ucwords(array_shift($url));
       }
@@ -66,7 +66,7 @@ class Request
       $this->argument = $url;
       
     } else {
-      $this->controller = 'Auth';
+      $this->controller = 'Home';
       $this->method = 'index';
     }
 
