@@ -4,11 +4,14 @@
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a href="sass.html">Sass</a></li>
       <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">JavaScript</a></li>
-      <li>
-        <a href="{{ URL }}auth/logout">Cerrar Sesión</a>
-        {{ data }}
-      </li>
+      <li><a href="collapsible.html">{{ sessions.user }}</a></li>
+      {% if sessions is empty %}
+
+      {% else %}
+        <li>
+          <a href="{{ URL }}auth/logout">Cerrar Sesión</a>
+        </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

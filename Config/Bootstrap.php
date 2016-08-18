@@ -49,7 +49,8 @@ class Bootstrap
     $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.php';
 
     if (is_readable($url)) {
-      self::loadTwig($fileSystem, $data, $request->getMethod());
+      $sessions = $_SESSION;
+      self::loadTwig($fileSystem, $data, $request->getMethod(), $sessions);
       // require $url;
     } else {
       // Definimos una vista en caso de que no se encuentre la URL
@@ -61,7 +62,7 @@ class Bootstrap
   /**
   * Carga de motor de plantillas Twig
   */
-  public function loadTwig($fileSystem, $data, $method)
+  public function loadTwig($fileSystem, $data, $method, $sessions)
   {
     require_once ROOT . '..' . DS . 'vendor' . DS . 'lib' . DS . 'Twig' . DS . 'Autoloader.php';
     \Twig_Autoloader::register();
@@ -72,9 +73,10 @@ class Bootstrap
     $twig = new \Twig_Environment($loader);
 
     echo $twig->render($fileSystem, array(
-      'data'    => $data,
-      'method'  => $method,
-      'assets'  => ASSETS
+      'data'      => $data,
+      'method'    => $method,
+      'assets'    => ASSETS, 
+      'sessions'  => $sessions
     ));
   }
 }
