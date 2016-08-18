@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Controllers;
 use Models\User as user;
@@ -6,7 +6,7 @@ use Models\Auth\Auth as auth;
 use \Exception;
 
 /**
-* Controlador para el modelo Auth, se encarga de recibir los datos que serán 
+* Controlador para el modelo Auth, se encarga de recibir los datos que serán
 * enviados al modelo
 *
 * @package Controllers
@@ -33,21 +33,17 @@ class AuthController
   public function __construct()
   {
     $this->user = new User();
-    $this->auth = new Auth();
   }
 
   /**
   * Recibe los datos enviados a través del formulario
-  * 
+  *
   * @return void
   */
   public function index()
   {
-    if ($this->auth->isLoggedIn()) {
-
-      // TODO...
-      // el usuario no esta logeado, redigirlo al home
-      echo 'no logeo';
+    if (auth::isLoggedIn()) {
+      auth::redirect(URL . "home");
     } else {
       if (isset($_POST['login'])) {
         $this->auth->set('email', $_POST['email']);
@@ -62,5 +58,16 @@ class AuthController
         }
       }
     }
+  }
+
+  /**
+  * Destruye la sesion del usuario (Cerrar Sesion)
+  *
+  * @return void
+  */
+  public function logout()
+  {
+    auth::logout();
+    auth::redirect(URL . "home");
   }
 }
