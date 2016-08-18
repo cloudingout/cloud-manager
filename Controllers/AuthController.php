@@ -33,6 +33,7 @@ class AuthController
   public function __construct()
   {
     $this->user = new User();
+    $this->auth = new Auth();
   }
 
   /**
