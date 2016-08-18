@@ -44,7 +44,7 @@ class AuthController
   public function index()
   {
     if (auth::isLoggedIn()) {
-      auth::redirect(URL . "home");
+      auth::redirect(URL . "deploymentvm");
     } else {
       if (isset($_POST['login'])) {
         $this->auth->set('email', $_POST['email']);
