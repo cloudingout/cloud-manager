@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use Models\User as user;
+use Models\Auth\Auth as auth;
 
 /**
 * Controlador para usuarios
@@ -18,7 +19,7 @@ class UsersController
   */
   private $user;
 
-  /** 
+  /**
   * Constructor - Obtiene el módelo User
   * @return void
   */
@@ -29,18 +30,23 @@ class UsersController
 
   /**
   * Recibe los datos del módelo y los envía a la vista del usuario
-  * 
+  *
   * @return array
   */
   public function index()
   {
-    return $this->user->view();
+    if (auth::isLoggedIn()) {
+      return $this->user->view();
+    } else {
+      auth::redirect(URL . "errors");
+    }
+
   }
 
-  /** 
-  * Recibe los datos enviados a través del formulario y envía los mismos 
+  /**
+  * Recibe los datos enviados a través del formulario y envía los mismos
   * al módelo
-  * 
+  *
   * @return void
   */
   public function signUp()
@@ -58,9 +64,9 @@ class UsersController
   }
 
   /**
-  * Recibe los datos enviados del formulario, los envía al módelo y este hace 
+  * Recibe los datos enviados del formulario, los envía al módelo y este hace
   * la actualización de los datos del usuario
-  * 
+  *
   * @return void
   */
   public function update($id)
@@ -81,9 +87,9 @@ class UsersController
   }
 
   /**
-  * Recibe los datos enviados a través de la URL y se los envía al modelo, el 
+  * Recibe los datos enviados a través de la URL y se los envía al modelo, el
   * cual se encargará de poner al usuario en estado inactivo o bloqueado.
-  * 
+  *
   * @return void
   */
   public function changeStatus($id)
