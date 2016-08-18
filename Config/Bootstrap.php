@@ -2,7 +2,7 @@
 
 namespace Config;
 
-/** 
+/**
 * Carga las vistas y crea objetos a través de la URL
 *
 * @package cloud_manager
@@ -12,7 +12,7 @@ namespace Config;
 class Bootstrap
 {
 
-  /** 
+  /**
   * Obtiene los controladores, métodos y argumentos desde la clase Request y
   * crea un objeto del controlador obtenido
   *
@@ -43,8 +43,8 @@ class Bootstrap
       }
 
     }
-
-    // Cargamos las vistas 
+    
+    // Cargamos las vistas
     $url = ROOT . '../Resources/Views' . DS . strtolower($request->getController()) . DS . $request->getMethod() . '.php';
     $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.php';
 
@@ -72,8 +72,8 @@ class Bootstrap
     $twig = new \Twig_Environment($loader);
 
     echo $twig->render($fileSystem, array(
-      'data'    => $data, 
-      'method'  => $method, 
+      'data'    => $data,
+      'method'  => $method,
       'assets'  => ASSETS
     ));
   }

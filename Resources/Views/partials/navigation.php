@@ -7,7 +7,7 @@
       <li><a href="collapsible.html">JavaScript</a></li>
       <li>
         <a href="{{ URL }}auth/logout">Cerrar Sesión</a>
-        <?php var_dump($_SESSION); ?>
+        {{ data }}
       </li>
     </ul>
   </div>
