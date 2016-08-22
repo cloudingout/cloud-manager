@@ -21,10 +21,10 @@ namespace Config;
 		Esta funcion sirve para ejecutar scritp remotos en los anfitriones
 		que van a contener las maquinas virtuales
 		*/
-		public function scritp ($scritp)
+		public function script ($script)
 		{
 			#construccion del comando 
-			$new_comand = 'ssh -i ' . $this->key . ' ' . $this->user . '@'. $this->host . " bash -s" .' < ' . $scritp;
+			$new_comand = 'ssh -i ' . $this->key . ' ' . $this->user . '@'. $this->host . " bash -s" .' < ' . $script;
 			$resultado = shell_exec($new_comand);
 			#ejecucion y retorno del comando	
 			return $resultado;

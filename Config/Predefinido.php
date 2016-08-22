@@ -2,7 +2,6 @@
 
 namespace Config;
 
-include ('RemoteCommand.php');
 
 class Predefinido {
 
