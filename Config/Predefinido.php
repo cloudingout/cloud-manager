@@ -1,7 +1,13 @@
 <?php 
 
 namespace Config;
-
+use Config\RemoteCommand as Remote;
+/**
+* Clase de Pruebas sobre el patron de comandos
+*
+* @package Predefinido
+* @author Luis Penagos <luispenagos91@gmail.com>
+*/
 
 class Predefinido {
 
@@ -14,7 +20,7 @@ class Predefinido {
 	
 	public function __construct()
 	{
-		$this->comand = new RemoteCommand;
+		$this->comand = new Remote;
 	}
 	
 	/*

@@ -1,6 +1,12 @@
 <?php 
 
-namespace Config; 
+namespace Config;
+/**
+* Clase usada para ejecutar comandos en servidores remotos
+*
+* @package RemoteCommand
+* @author Luis Penagos <luispenagos91@gmail.com>
+*/ 
 
 	class RemoteCommand {
 		
