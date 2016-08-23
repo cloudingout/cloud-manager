@@ -82,7 +82,6 @@ class CreateBash {
 				foreach ($bash_content as $key => $value) {
 					$writer .= $value.PHP_EOL;
 				}
-
 				break;
 			default:
 				$bash_content  = $bash_init;
