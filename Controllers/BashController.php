@@ -16,6 +16,6 @@ class BashController {
 	public function index()
 	{
 		$this->bash->start_bash('upgrade');
-		echo $_SERVER['SCRIPT_FILENAME'];
+		// echo $_SERVER['SCRIPT_FILENAME'];
 	}
 }

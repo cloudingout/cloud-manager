@@ -107,7 +107,6 @@ class user
     $sql .= '           a.name, ';
     $sql .= '           a.last_name, ';
     $sql .= '           a.email, ';
-    $sql .= '           a.telephone, ';
     $sql .= '           a.balance ';
     $sql .= 'FROM       users AS a ';
     $sql .= 'LEFT JOIN  users_types as b ON(b.id = a.users_types_id) ';
@@ -130,34 +129,22 @@ class user
   *
   * @return boolean 
   */
-  public function add()
+  public function signUp()
   {
     $sql  = 'INSERT INTO  users (';
     $sql .= '             id, ';
-    $sql .= '             users_types_id, ';
-    $sql .= '             name, ';
-    $sql .= '             last_name, ';
     $sql .= '             email, ';
-    $sql .= '             password, ';
-    $sql .= '             telephone ';
+    $sql .= '             password ';
     $sql .= ') VALUES (';
     $sql .= '             :id, ';
-    $sql .= '             :users_types_id, ';
-    $sql .= '             :name, ';
-    $sql .= '             :last_name, ';
     $sql .= '             :email, ';
-    $sql .= '             :password, '; // encriptar password
-    $sql .= '             :telephone ';
+    $sql .= '             :password '; // encriptar password
     $sql .= ')';
 
     $values = [
       'id'              => null, 
-      'users_types_id'  => 2,
-      'name'            => $this->name, 
-      'last_name'       => $this->lastName, 
       'email'           => $this->email, 
-      'password'        => $this->password, 
-      'telephone'       => $this->telephone
+      'password'        => $this->password
     ];
 
     $query = $this->database->query($sql, $values);

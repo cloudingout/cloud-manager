@@ -52,14 +52,29 @@ class UsersController
   public function signUp()
   {
     if ($_POST) {
-      $this->user->set('usersType', $_POST['user-type']);
-      $this->user->set('name', $_POST['name']);
-      $this->user->set('lastName', $_POST['last-name']);
       $this->user->set('email', $_POST['email']);
       $this->user->set('password', $_POST['password']);
-      $this->user->set('telephone', $_POST['telephone']);
 
-      $this->user->add();
+      if ($_POST['confirm-password'] == $_POST['password']) {
+        $to = $_POST['email'];
+        $subject = 'Confirmar registro';
+        $message = "Usted se ha registrado satisfactoriamente";
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8 \r\n";
+        $headers .= "From: www@server3.metin2renacer.com' . \r\n";
+
+        $mail = mail($to, $subject, $message, $headers);
+
+        if ($mail) {
+          echo 'exito';
+        } else {
+          echo 'ni fuck';
+        }
+        $this->user->signUp();
+      } else {
+        echo 'Las contraseñas no son iguales';
+      }
+      
     }
   }
 

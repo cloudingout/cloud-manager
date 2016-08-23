@@ -5,6 +5,6 @@
 {% block content %}
 
 <div>Algo de data </div>
-<div>  </div>
+<div> {{ data }} </div>
 
 {% endblock %}
