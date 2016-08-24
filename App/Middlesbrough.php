@@ -19,36 +19,18 @@ class Middlesbrough
   private $longitudSalt = 5;
 
   /**
+  * @var string salt
+  */
+  private $salt = "!@*.5233";
+  /**
   * Encripta una cadena de texto, dada por el parámetro $string
   * 
   * @param string $string una cadena de texto dada por el usuario
   * @return string cadena de texto encriptada
   */
-  public function dcrypt($string)
+  public function encrypt($string)
   {
-    // Generamos el salt aleatorio con la longitud definida
-    $salt = substr(uniqid(rand(), true), 0, $this->longitudSalt);
-
-    $out = hash('sha1', $string.$salt);
-    return $this->longitudSalt.$out.salt;
+    $out = hash('sha1', $string.$this->salt);
+    return $this->salt.$this->longitudSalt.$out.$this->salt;
   }
-
-  /**
-  * Encuentra el hash correspondiente a una cadena, lo separa y lo valida
-  * Servirá para el logueo del usuario
-  *
-  * @param string $string cadena de texto a validar 
-  * @return string $hash contiene la longitud, el hash y el salt 
-  *         de la cadena de texto original
-  */
-  public function isEqualDcrypt($string)
-  {
-    $arrHash['longitud']  = substr($string, 0, 1);
-    $arrHash['hash']      = substr($string, 1, strlen($string) - ($arrHash['longitud'] + 1));
-    $arrHash['salt']      = str_replace($arrHash['hash'], '', substr($string, 1));
-
-    $hash = $arrHash['longitud'].$arrHash['hash'].$arrHash['salt'];
-    return $hash;
-  }
-
 }

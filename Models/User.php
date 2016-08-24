@@ -36,7 +36,7 @@ class user
   /**
   * @var object $middlesbroug almacena la clase helper
   */
-  protected $middlesbroug;
+  protected $middlesbrough;
 
   /**
   * Crea el objeto database, el cual tiene la conexión a la base de datos
@@ -46,7 +46,7 @@ class user
   public function __construct()
   {
     $this->database = new Database();
-    $this->middlesbroug = new Middlesbrough();
+    $this->middlesbrough = new Middlesbrough();
   }
 
   /**
@@ -88,11 +88,11 @@ class user
     $sql .= '       password ';
     $sql .= 'FROM   users ';
     $sql .= 'WHERE  email = :email ';
-    $sql .= 'AND    password = password(:password) ';
+    $sql .= 'AND    password = :password ';
 
     $values = [
       'email'     => $this->email, 
-      'password'  => $this->middlesbroug->isEqualDcrypt($this->password)
+      'password'  => $this->password
     ];
 
     $result = $this->database->query($sql, $values);
@@ -153,13 +153,13 @@ class user
     $sql .= ') VALUES (';
     $sql .= '             :id, ';
     $sql .= '             :email, ';
-    $sql .= '             password(:password) '; // encriptar password
+    $sql .= '             :password '; 
     $sql .= ')';
 
     $values = [
       'id'              => null, 
       'email'           => $this->email, 
-      'password'        => $this->middlesbroug->dcrypt($this->password)
+      'password'        => $this->middlesbrough->encrypt($this->password)
     ];
 
     $query = $this->database->query($sql, $values);

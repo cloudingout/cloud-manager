@@ -1,6 +1,7 @@
 <?php
 namespace Models\Auth;
 use Config\Database as Database;
+use App\Middlesbrough as Middlesbrough;
 use \Exception;
 use \DateTime;
 use \PDO;
@@ -19,7 +20,7 @@ class Auth extends Database implements IAuth
   * Almacena la instancia de la clase Database
   * @var $database
   */
-  private $database;
+  protected $database;
 
   /**
   * Almacena el email del usuario, enviado por el form 
@@ -35,6 +36,16 @@ class Auth extends Database implements IAuth
   private $password;
 
   /**
+  * @var object $middlesbrough objeto de la clase Middlesbrough
+  */
+  protected $middlesbrough;
+
+  /**
+  * @var object $user datos correspondientes al usuario
+  */
+  protected $user;
+
+  /**
   * Crea el objeto database, el cual tiene la conexión a la base de datos
   *
   * @return void
@@ -42,6 +53,7 @@ class Auth extends Database implements IAuth
   public function __construct()
   {
     $this->database = new Database();
+    $this->middlesbrough = new Middlesbrough();
   }
 
   /**
@@ -81,25 +93,22 @@ class Auth extends Database implements IAuth
       $sql  = "SELECT id, "; 
       $sql .= "       name, ";
       $sql .= "       last_name, ";
-      $sql .= "       email, ";
-      $sql .= "       password ";
+      $sql .= "       email ";
       $sql .= "FROM   users ";
       $sql .= "WHERE  email = :email ";
       $sql .= "AND    password = :password ";
 
       $values = [
         'email'     => $this->email, 
-        'password'  => $this->password
+        'password'  => $this->middlesbrough->encrypt($this->password)
       ];
 
       $user = $this->database->query($sql, $values);
-
       if (count($user) > 0) {
 
-        if ($this->checkCredentials($this->email, $user[0]['email'], $this->password, $user[0]['password'])) {
-          $_SESSION['user_id'] = $user[0]['id'];
-          $_SESSION['user'] = $user[0]['name'];
-
+        if (!empty($this->checkCredentials())) {
+          $_SESSION['user_id'] = $this->user[0]['id'];
+          
           return true;
         } else {
           return false;
@@ -116,12 +125,31 @@ class Auth extends Database implements IAuth
   * Verifica si las credenciales del usuario que intenta ingresar coinciden 
   * con los datos registrados 
   *
-  * @access private
+  * @access protected
   * @return boolean
   */
-  private function checkCredentials($uemail, $dbemail, $upassword, $dbpassword)
+  protected function checkCredentials()
   {
-    return $uemail == $dbemail && $upassword == $dbpassword;
+    $sql  = "SELECT id, ";
+    $sql .= "       name, ";
+    $sql .= "       email, ";
+    $sql .= "       password ";
+    $sql .= "FROM   users ";
+    $sql .= "WHERE  email = :email ";
+    $sql .= "AND    password = :password ";
+
+    $values = [
+      'email'     => $this->email, 
+      'password'  => $this->middlesbrough->encrypt($this->password) 
+    ];
+
+    $this->user = $this->database->query($sql, $values);
+
+    if (count($this->user) > 0) {
+      return $this->user;
+    } else {
+      return;
+    }
   }
 
   /**
@@ -132,7 +160,7 @@ class Auth extends Database implements IAuth
   */
   public function isLoggedIn()
   {
-    if (isset($_SESSION['user'])) {
+    if (isset($_SESSION['user_id'])) {
       return true;
     } else {
       return false;
