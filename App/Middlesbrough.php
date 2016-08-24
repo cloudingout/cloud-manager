@@ -38,7 +38,7 @@ class Middlesbrough
   * Servirá para el logueo del usuario
   *
   * @param string $string cadena de texto a validar 
-  * @return array $arrHash vector que contiene la longitud, el hash y el salt 
+  * @return string $hash contiene la longitud, el hash y el salt 
   *         de la cadena de texto original
   */
   public function isEqualDcrypt($string)
@@ -47,7 +47,8 @@ class Middlesbrough
     $arrHash['hash']      = substr($string, 1, strlen($string) - ($arrHash['longitud'] + 1));
     $arrHash['salt']      = str_replace($arrHash['hash'], '', substr($string, 1));
 
-    return $arrHash;
+    $hash = $arrHash['longitud'].$arrHash['hash'].$arrHash['salt'];
+    return $hash;
   }
 
 }
