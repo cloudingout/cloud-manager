@@ -2,6 +2,7 @@
 
 namespace Models;
 use Config\Database as Database;
+use App\Middlesbrough as Middlesbrough;
 
 /**
 * Administración de usuarios; creación, eliminación, actualización y lectura 
@@ -17,10 +18,10 @@ class user
   */
   private $id;
   private $status;
-  private $name;
-  private $lastName;
-  private $email;
-  private $password;
+  public $name;
+  public $lastName;
+  public $email;
+  protected $password;
   private $telephone;
   private $balance;
   private $token;
@@ -30,7 +31,12 @@ class user
   * Almacena la conexión a la base de datos
   * @var database
   */
-  private $database;
+  protected $database;
+
+  /**
+  * @var object $middlesbroug almacena la clase helper
+  */
+  protected $middlesbroug;
 
   /**
   * Crea el objeto database, el cual tiene la conexión a la base de datos
@@ -40,6 +46,7 @@ class user
   public function __construct()
   {
     $this->database = new Database();
+    $this->middlesbroug = new Middlesbrough();
   }
 
   /**
@@ -74,10 +81,18 @@ class user
   */
   public function auth()
   {
-    $sql = 'SELECT id, name, last_name, email, password FROM users WHERE email = :email AND password = :password ';
+    $sql  = 'SELECT id, ';
+    $sql .= '       name, ';
+    $sql .= '       last_name, ';
+    $sql .= '       email, ';
+    $sql .= '       password ';
+    $sql .= 'FROM   users ';
+    $sql .= 'WHERE  email = :email ';
+    $sql .= 'AND    password = password(:password) ';
+
     $values = [
       'email'     => $this->email, 
-      'password'  => $this->password
+      'password'  => $this->middlesbroug->isEqualDcrypt($this->password)
     ];
 
     $result = $this->database->query($sql, $values);
@@ -89,7 +104,7 @@ class user
       return $result;
 
     } else {
-      return ;
+      return;
       die();
     }
   }
@@ -138,13 +153,13 @@ class user
     $sql .= ') VALUES (';
     $sql .= '             :id, ';
     $sql .= '             :email, ';
-    $sql .= '             :password '; // encriptar password
+    $sql .= '             password(:password) '; // encriptar password
     $sql .= ')';
 
     $values = [
       'id'              => null, 
       'email'           => $this->email, 
-      'password'        => $this->password
+      'password'        => $this->middlesbroug->dcrypt($this->password)
     ];
 
     $query = $this->database->query($sql, $values);
