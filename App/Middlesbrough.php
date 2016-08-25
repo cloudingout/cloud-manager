@@ -11,6 +11,11 @@ namespace App;
 
 class Middlesbrough
 {
+  /**
+  * @var array $errors almacena los errores cuando no se cumpla una condición
+  *
+  */
+  private $errors;
 
   /**
   * @var integer $longitud longitud del salt a generar
@@ -22,6 +27,7 @@ class Middlesbrough
   * @var string salt
   */
   private $salt = "!@*.5233";
+
   /**
   * Encripta una cadena de texto, dada por el parámetro $string
   * 
@@ -32,5 +38,135 @@ class Middlesbrough
   {
     $out = hash('sha1', $string.$this->salt);
     return $this->salt.$this->longitudSalt.$out.$this->salt;
+  }
+
+  /**
+  * Validación de texto, con espacios o sin ellos, posibilidad de enviar longitud 
+  * mínima y máxima del string. Agrega una cadena de texto al array $errors en 
+  * caso de que exista un error
+  *
+  * @param string $string cadena de texto que será evaluada
+  * @param boolean || integer $min cantidad de caracteres mínimos permitidos
+  * @param boolean || integer $max cantidad de caracteres máximos permitidos
+  * @param boolean $spaces define si la cadena de texto puede o no contener espacios
+  * @param boolean $required define si un campo de texto es requerido
+  * @param boolean $stringNumeric define si la cadena puede contener números y letras 
+  * @param string $message mensaje para mostrar al usuario en caso de error
+  *
+  * @return boolean 
+  */
+  public function validateText($string, $min, $max, $spaces, $required, $stringNumeric, $message)
+  {
+    if (!empty($min)) {
+      if (strlen($string) < $min) {
+        $this->errors[] = $message;
+        return false;
+      }
+    }
+
+    if (!empty($max)) {
+      if (strlen($max) > $max) {
+        $this->errors[] = $message;
+        return false;
+
+      }
+    }
+
+    if ($spaces) {
+      // Solo espacios y letras
+      $result = preg_match("/^[a-zA-Z ]*$/", $string);
+    } else {
+      // Solo letras
+      $result = preg_match("/^[a-zA-Z]*$/", $string);
+    }
+
+    if ($result) {
+      return true;
+    } else {
+      $this->errors[] = $message;
+      return false;
+    }
+
+    if ($stringNumeric) {
+      // Numeros, letras y espacios 
+      $result = preg_match("/^[a-zA-Z0-9 ]*$/", $string);
+    } else {
+      // Numeros y letras
+      $result = preg_match("/^[a-zA-Z0-9]*$/", $string);
+    }
+  }
+
+  /**
+  * Validación de direcciones email
+  *
+  * @param string $email direción email que será evaluada
+  * @param string $message mensaje para mostrar al usuario en caso de error
+  *
+  * @return boolean 
+  */
+  public function validateEmail($email, $message)
+  {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $this->errors[] = $message;
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /**
+  * Validación de números, valor mínimo, valor máximo
+  *
+  * @param numeric $num numero que será validado
+  * @param boolean || $min integer valor mínimo permitido
+  * @param boolean || $max integer valor máximo permitido
+  * @param string $message mensaje para mostrar al usuario en caso de error
+  *
+  * @return boolean 
+  */
+  public function validateNumeric($num, $min, $max, $message)
+  {
+    if (is_numeric($num)) {
+
+      if ($num < $min || $num > $max) {
+        $this->errors[] = $message;
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      $this->errors[] = $message;
+      return false;
+    }
+  }
+
+  /**
+  * Limpia la cadena de texto de caracteres no permitidos
+  *
+  * @param string $string cadena que será limpiada
+  * 
+  * @return string $string cadena limpia de caracteres no permitidos
+  */
+  public function cleaningCharacters($string)
+  {
+    $string = trim($string);
+    $string = stripslashes($string);
+    $string = htmlspecialchars($string);
+
+    return $string;
+  }
+
+  /**
+  * Verificamos si existen errores o no en las validaciones
+  * 
+  * @return array $this->errors
+  */
+  public function isErrors()
+  {
+    if (count($this->errors) > 0) {
+      return $this->errors;
+    } else {
+      return true;
+    }
   }
 }
