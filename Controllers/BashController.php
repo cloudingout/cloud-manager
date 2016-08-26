@@ -3,19 +3,22 @@
 namespace Controllers;
 use Config\CreateBash as Bash;
 use Config\Predefinido as Definido;
+use Config\Info as Info;
 
 class BashController {
 
 	private $bash;
+	private $info;
 
 	public function __construct()
 	{
 		$this->bash = new Bash;
+		$this->info = new Info;
+
 	}
 
-	public function index()
-	{
-		$this->bash->start_bash('upgrade');
-		// echo $_SERVER['SCRIPT_FILENAME'];
+	public function index()	
+	{				
+		$this->bash->start_bash('launch');		
 	}
 }

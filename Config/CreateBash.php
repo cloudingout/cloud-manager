@@ -2,6 +2,7 @@
 
 namespace Config;
 use Config\RemoteCommand as Remote;
+
 /**
 * Clase usada para crear archivos bash dinamicamente con php.
 *
@@ -16,15 +17,24 @@ tambien se usan para agilizar el despliegue de las vm
 */
 
 class CreateBash {
+
+	#nombre del script que se ejecutara
 	private $name;
+	
+	#contenido del script
 	private $content;
-	private $otros;
-	private $remote;
+
+	#variable usada para instanciar la clase RemoteCommand
+	private $remote;	
+
+	#variable usada para instanciar la clase info
+	private $info;
 
 	public function __construct()
 	{
-		/*Instanciamos la Clase Remote en  */
+		#Instanciamos la Clase Remote
 		$this->remote = new Remote;
+		$this->info = new Info;
 	}
 
 	public function set($atributo,$contenido)
@@ -34,87 +44,83 @@ class CreateBash {
 	/*esta metodo se encarga de crear script's en bash deacuerdo al parametro
 	que resiva este metodo */
 
-	private function init($filename)
+	private function init()
 	{
 		/*
 		No modificar las variables.
 		La primera indica el directorio base donde se guardaran los script's
 		La segunda contine la forma somo se inician los script's bash
 		*/
-		$bash_folder = "/var/www/html/Cloud/cloud-manager/Bash/";
+		$this->info->set('vmname','nombre_prueba');
+		$this->info->set('image_name','ubuntu:i386');
+
+		$bash_folder = "/srv/http/htdocs/Bash/";
 		$bash_init = "#!/bin/bash";
 
-		switch ($filename) 
+		switch ($this->name) 
 		{
-			case "":				
-				/* La variable $bash_content contiene el cuerpo del documento bash */
-				$bash_content  = $bash_init;
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";	
-				$bash_content .= "";
+			case "launch":				
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "lxc launch images:". $this->info->get('image_name') ." ".$this->info->get('vmname');				
+				$this->content[] = "sleep(2)";
 				break;
 			case "":
-				/* La variable $bash_content contiene el cuerpo del documento bash */
-				$bash_content  = $bash_init;
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";	
-				$bash_content .= "";
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "";
+				$this->content[] = "";				
 				break;
 			case "":
-				/* La variable $bash_content contiene el cuerpo del documento bash */
-				$bash_content  = $bash_init;
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";
-				$bash_content .= "";	
-				$bash_content .= "";
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "";
+				$this->content[] = "";				
 				break;
 			case "upgrade":
-				/* La variable $bash_content contiene el cuerpo del documento bash */
-				$bash_content[0] = $bash_init;
-				$bash_content[1] = "apt-get upgrade";
-				$bash_content[2] = "sleep 1";	
-				$writer = "";
-				foreach ($bash_content as $key => $value) {
-					$writer .= $value.PHP_EOL;
-				}
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "apt-get upgrade";
+				$this->content[] = "sleep 1";					
 				break;
-			default:
-				$bash_content  = $bash_init;
-				$bash_content .= "apt-get update";
-				$bash_content .= "sleep 1";	
+			case "update":
+				$this->content[] = $bash_init;
+				$this->content[] = "apt-get update";
+				$this->content[] = "sleep 1";
+				$this->name = "update";	
 				break;
+			}
+
+			$writer = "";
+			foreach ($this->content as $key => $value) {
+				$writer .= $value.PHP_EOL;
 			}
 			/*
 			Ahora vamos a crear el archivo con la funcione fopen
 			luego guardamos el contenido y le cambiamos los permisos al archivo para que
 			se puede ejecutar.
 			*/
-			$basic = fopen($bash_folder.$filename.'.sh', 'x');
+			$basic = fopen($bash_folder.$this->name.'.sh', 'x');
 			fwrite($basic, $writer);
 			/* Retornamos la ubicacion del archivo creado. */
-			return $bash_folder.$filename;					
+			return $bash_folder.$this->name;					
 	}
 
 	/* Esta funcion se encarga de ejecutar los script's creados por la funcion anterior*/
 	public function start_bash ($filename)
-	{
+	{		
+		$this->name = $filename;
 		/*Ejecutamos el metodo init contenido en este script*/
-		$file = $this->init($filename);
+		$file = $this->init();
 		/*Ejecutamos el script en el servidor remoto */
 		$retornos = $this->remote->script($file);
 		/*Retornamos el contenido */
 		return $retornos;
-
 	}
 
 	public function time_script () 
 	{
-
+	
 	}
-}
 
+}
