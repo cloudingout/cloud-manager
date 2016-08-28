@@ -19,6 +19,7 @@ class BashController {
 
 	public function index()	
 	{				
-		$this->bash->start_bash('launch');		
+		$this->bash->start_bash('launch','ubuntu:i386','vm1');
+		#$this->bash->start_bash('update');		
 	}
 }

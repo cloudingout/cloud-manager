@@ -44,17 +44,20 @@ class CreateBash {
 	/*esta metodo se encarga de crear script's en bash deacuerdo al parametro
 	que resiva este metodo */
 
-	private function init()
+	private function init($image_name=NULL,$vmname=NULL)
 	{
 		/*
 		No modificar las variables.
 		La primera indica el directorio base donde se guardaran los script's
 		La segunda contine la forma somo se inician los script's bash
 		*/
-		$this->info->set('vmname','nombre_prueba');
-		$this->info->set('image_name','ubuntu:i386');
+		if ($image_name AND $vmname AND $this->name = "launch")
+		{
+			$this->info->set('vmname',$vmname);
+			$this->info->set('image_name',$image_name);
+		}
 
-		$bash_folder = "/srv/http/htdocs/Bash/";
+		$bash_folder = "/home/luisito/www/Cloud/cloud-manager/Bash/";
 		$bash_init = "#!/bin/bash";
 
 		switch ($this->name) 
@@ -103,15 +106,15 @@ class CreateBash {
 			$basic = fopen($bash_folder.$this->name.'.sh', 'x');
 			fwrite($basic, $writer);
 			/* Retornamos la ubicacion del archivo creado. */
-			return $bash_folder.$this->name;					
+			return $bash_folder.$this->name.'.sh';					
 	}
 
 	/* Esta funcion se encarga de ejecutar los script's creados por la funcion anterior*/
-	public function start_bash ($filename)
+	public function start_bash ($filename,$var1=NULL,$var2=NULL)
 	{		
 		$this->name = $filename;
 		/*Ejecutamos el metodo init contenido en este script*/
-		$file = $this->init();
+		$file = $this->init($var1,$var2);
 		/*Ejecutamos el script en el servidor remoto */
 		$retornos = $this->remote->script($file);
 		/*Retornamos el contenido */
