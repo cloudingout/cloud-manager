@@ -50,7 +50,13 @@ class Bootstrap
     $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.php';
 
     if (is_readable($url)) {
-      $sessions = $_SESSION;
+
+      if (!empty($_SESSION)) {
+        $sessions = $_SESSION;
+      } else {
+        $sessions = '';
+      }
+      
       self::loadTwig($fileSystem, $data, $request->getMethod(), $sessions);
       // require $url;
     } else {
