@@ -167,17 +167,6 @@ class Auth extends Database implements IAuth
     }
   }
 
-  /** 
-  * Redirecciona al usuario a una vista
-  * 
-  * @access public
-  * @return void
-  */
-  public function redirect($url)
-  {
-    header("Location: $url");
-  }
-
   /**
   * Cierra la sesión del usuario
   * 

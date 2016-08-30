@@ -12,6 +12,5 @@ interface IAuth
 {
   public function authenticate();
   public function isLoggedIn();
-  public function redirect($url);
   public function logout();
 }

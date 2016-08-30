@@ -3,6 +3,7 @@
 namespace Controllers;
 use Models\User as user;
 use Models\Auth\Auth as auth;
+use App\Middlesbrough as middlesbrough;
 
 /**
 * Controlador para usuarios
@@ -20,12 +21,18 @@ class UsersController
   private $user;
 
   /**
+  * 
+  */
+  private $middlesbrough;
+
+  /**
   * Constructor - Obtiene el módelo User
   * @return void
   */
   public function __construct()
   {
     $this->user = new User();
+    $this->middlesbrough = new Middlesbrough();
   }
 
   /**
@@ -51,30 +58,17 @@ class UsersController
   */
   public function signUp()
   {
-    if ($_POST) {
-      $this->user->set('email', $_POST['email']);
-      $this->user->set('password', $_POST['password']);
-
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
       if ($_POST['confirm-password'] == $_POST['password']) {
-        $to = $_POST['email'];
-        $subject = 'Confirmar registro';
-        $message = "Usted se ha registrado satisfactoriamente";
-        $headers  = "MIME-Version: 1.0\r\n";
-        $headers .= "Content-type: text/html; charset=utf-8 \r\n";
-        $headers .= "From: www@server3.metin2renacer.com' . \r\n";
+        $this->user->set("email", $this->middlesbrough->validateEmail($_POST['email']));
+        $this->user->set("password", $this->middlesbrough->validateText($_POST['password'], 1, 12, false, true, true));
 
-        $mail = mail($to, $subject, $message, $headers);
+        $create = $this->user->signUp();
 
-        if ($mail) {
-          echo 'exito';
-        } else {
-          echo 'ni fuck';
+        if ($create) {
+          $this->middlesbrough->redirect(URL . "auth");
         }
-        $this->user->signUp();
-      } else {
-        echo 'Las contraseñas no son iguales';
       }
-      
     }
   }
 

@@ -55,18 +55,20 @@ class Middlesbrough
   *
   * @return boolean 
   */
-  public function validateText($string, $min, $max, $spaces, $required, $stringNumeric, $message)
+  public function validateText($string, $min, $max, $spaces, $required, $stringNumeric)
   {
+    $string = $this->cleaningCharacters($string);
+
     if (!empty($min)) {
       if (strlen($string) < $min) {
-        $this->errors[] = $message;
+        $this->errors[] = "El campo es obligatorio";
         return false;
       }
     }
 
     if (!empty($max)) {
-      if (strlen($max) > $max) {
-        $this->errors[] = $message;
+      if (strlen($string) > $max) {
+        $this->errors[] = "La longitud de caracteres supera la longitud máxima permitida";
         return false;
 
       }
@@ -74,26 +76,25 @@ class Middlesbrough
 
     if ($spaces) {
       // Solo espacios y letras
-      $result = preg_match("/^[a-zA-Z ]*$/", $string);
-    } else {
-      // Solo letras
-      $result = preg_match("/^[a-zA-Z]*$/", $string);
+      $string = preg_match("/^[a-zA-Z ]*$/", $string);
     }
 
-    if ($result) {
-      return true;
+    if ($string) {
+      return $string;
     } else {
-      $this->errors[] = $message;
+      $this->errors[] = "Error inesperado";
       return false;
     }
 
     if ($stringNumeric) {
       // Numeros, letras y espacios 
-      $result = preg_match("/^[a-zA-Z0-9 ]*$/", $string);
+      $string = preg_match("/^[a-zA-Z0-9 ]*$/", $string);
     } else {
       // Numeros y letras
-      $result = preg_match("/^[a-zA-Z0-9]*$/", $string);
+      $string = preg_match("/^[a-zA-Z0-9]*$/", $string);
     }
+
+    return $string;
   }
 
   /**
@@ -104,13 +105,15 @@ class Middlesbrough
   *
   * @return boolean 
   */
-  public function validateEmail($email, $message)
+  public function validateEmail($email)
   {
+    $email = $this->cleaningCharacters($email);
+    
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $this->errors[] = $message;
+      $this->errors[] = "Por favor proporcione un correo electrónico válido";
       return false;
     } else {
-      return true;
+      return $email;
     }
   }
 
@@ -168,5 +171,16 @@ class Middlesbrough
     } else {
       return true;
     }
+  }
+
+  /** 
+  * Redirecciona al usuario a una vista
+  * 
+  * @access public
+  * @return void
+  */
+  public function redirect($url)
+  {
+    header("Location: $url");
   }
 }
