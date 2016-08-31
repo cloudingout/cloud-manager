@@ -11,20 +11,17 @@
               <div class="box">
                 <form action="" method="POST" accept-charset="UTF-8">
                   <h1 class="title no-margin text-center">Inicia sesión</h1>
-                    <div class="input-field col-xs-12 col-sm-6 col-sm-offset-3 top">
-                      <i class="material-icons prefix">account_circle</i>
-                      <label for="email">Correo Electrónico</label>
-                      <input id="email" type="email" name="email" class="validate">
+                    <div class="form-group label-floating col-xs-12 col-sm-6 col-sm-offset-3 top">
+                      <label for="email" class="control-label">Correo Electrónico</label>
+                      <input id="email" type="email" name="email" class="form-control">
                     </div>
-                    <div class="input-field col-xs-12 col-sm-6 col-sm-offset-3">
-                      <i class="material-icons prefix">vpn_key</i>
-                      <label for="password">Contraseña</label>
-                      <input id="password" type="password" name="password" class="validate">
+                    <div class="form-group label-floating col-xs-12 col-sm-6 col-sm-offset-3">
+                      <label for="password" class="control-label">Contraseña</label>
+                      <input id="password" type="password" name="password" class="form-control">
                     </div>
-                    <div class="input-field col-xs-12 text-center">
-                      <button class="btn waves-effect waves-light indigo" type="submit" name="login" value="xx">
+                    <div class="input-group col-xs-12 center-xs">
+                      <button class="btn btn-raised btn-inverse" type="submit" name="login" value="login">
                         Iniciar 
-                        <i class="material-icons right">cloud</i> 
                       </button>
                     </div>
                 </form>
