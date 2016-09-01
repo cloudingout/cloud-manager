@@ -115,6 +115,10 @@ class CreateBash {
 		$this->name = $filename;
 		/*Ejecutamos el metodo init contenido en este script*/
 		$file = $this->init($var1,$var2);
+		/*Definimos los parametros del server al que nos conectaremos */
+		$this->remote->add('user','root');
+		$this->remote->add('host','172.16.0.45');
+		$this->remote->add('key','/home/luisito/Proyectos/cloud-manager/Keys/Key_app.local');
 		/*Ejecutamos el script en el servidor remoto */
 		$retornos = $this->remote->script($file);
 		/*Retornamos el contenido */
