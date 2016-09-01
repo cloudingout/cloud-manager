@@ -3,7 +3,7 @@
 namespace Controllers;
 use Models\User as user;
 use Models\Auth\Auth as auth;
-use \Exception;
+use App\Middlesbrough as middlesbrough;
 
 /**
 * Controlador para el modelo Auth, se encarga de recibir los datos que serán
@@ -19,11 +19,17 @@ class AuthController
   * @var $user
   */
   private $user;
+
   /**
   * Almacena la instancia del módelo Auth
   * @var $auth
   */
   private $auth;
+
+  /**
+  * @var $middlesbrough
+  */
+  private $middlesbrough;
 
   /**
   * Constructor - Obtiene los módelos User y Auth
@@ -34,6 +40,7 @@ class AuthController
   {
     $this->user = new User();
     $this->auth = new Auth();
+    $this->middlesbrough = new Middlesbrough();
   }
 
   /**
@@ -44,7 +51,7 @@ class AuthController
   public function index()
   {
     if (auth::isLoggedIn()) {
-      auth::redirect(URL . "deploymentvm");
+      $this->middlesbrough->redirect(URL . "deploymentvm");
     } else {
       if (isset($_POST['login'])) {
         $this->auth->set('email', $_POST['email']);
@@ -53,9 +60,9 @@ class AuthController
         $authenticate = $this->auth->authenticate();
 
         if ($authenticate) {
-          $this->auth->redirect(URL . "users");
+          $this->middlesbrough->redirect(URL . "users");
         } else {
-          $this->auth->redirect(URL . "errors");
+          $this->middlesbrough->redirect(URL . "errors");
         }
       }
     }
@@ -69,6 +76,6 @@ class AuthController
   public function logout()
   {
     auth::logout();
-    auth::redirect(URL . "home");
+    $this->middlesbrough->redirect(URL . "home");
   }
 }

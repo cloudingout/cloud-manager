@@ -45,7 +45,7 @@ class UsersController
     if (auth::isLoggedIn()) {
       return $this->user->view();
     } else {
-      auth::redirect(URL . "errors");
+      $this->middlesbrough->redirect(URL . "errors");
     }
 
   }
