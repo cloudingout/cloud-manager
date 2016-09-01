@@ -12,24 +12,20 @@
               <div class="box">
                 <form action="" method="POST">
                   <h1 class="title no-margin">Actualización de datos de {{ data[0]['name'] }} {{ data[0]['last_name'] }}</h1>
-                  <div class="input-field col-xs-12 top">
-                    <label for="name">Nombres</label>
-                    <input type="text" name="name" id="name" value="{{ data[0]['name'] }}">
+                  <div class="form-group label-floating col-xs-12 top">
+                    <label for="name" class="control-label">Nombres</label>
+                    <input type="text" name="name" class="form-control" id="name" value="{{ data[0]['name'] }}">
                   </div>
-                  <div class="input-field col-xs-12 top">
-                    <label for="last-name">Apellidos</label>
-                    <input type="text" name="last-name" id="last-name" value="{{ data[0]['last_name'] }}">
+                  <div class="form-group label-floating col-xs-12 top">
+                    <label for="last-name" class="control-label">Apellidos</label>
+                    <input type="text" name="last-name" class="form-control" id="last-name" value="{{ data[0]['last_name'] }}">
                   </div>
-                  <div class="input-field col-xs-12 top">
-                    <label for="email">Correo electrónico: </label>
-                    <input type="email" name="email" id="email" value="{{ data[0]['email'] }}">
+                  <div class="form-group label-floating col-xs-12 top">
+                    <label for="email" class="control-label">Correo electrónico: </label>
+                    <input type="email" name="email" class="form-control" id="email" value="{{ data[0]['email'] }}">
                   </div>
-                  <div class="input-field col-xs-12 top">
-                    <label for="telephone">Telefono: </label>
-                    <input type="text" name="telephone" id="telephone" value="{{ data[0]['telephone'] }}">
-                  </div>
-                  <div class="input-field col-xs-12 top">
-                    <button class="btn waves-effect waves-light indigo" type="submit" name="update">
+                  <div class="input-group col-xs-12 top">
+                    <button class="btn btn-raised btn-inverse" type="submit" name="update">
                       Actualizar
                     </button>
                   </div>

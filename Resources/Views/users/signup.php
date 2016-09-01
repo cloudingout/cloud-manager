@@ -12,23 +12,20 @@
               <div class="box">
                 <form action="" method="POST" accept-charset="UTF-8">
                   <h1 class="title no-margin text-center">Regístrate</h1>
-                    <div class="input-field col-xs-12 top">
-                      <i class="material-icons prefix">email</i>
-                      <label for="email">Correo Electrónico</label>
-                      <input id="email" type="email" name="email" class="validate">
+                    <div class="form-group label-floating col-xs-12 top">
+                      <label for="email" class="control-label">Correo Electrónico</label>
+                      <input id="email" type="email" name="email" class="form-control">
                     </div>
-                    <div class="input-field col-xs-12 top">
-                      <i class="material-icons prefix">vpn_key</i>
-                      <label for="password">Contraseña</label>
-                      <input id="password" type="password" name="password" class="validate">
+                    <div class="form-group label-floating col-xs-12 top">
+                      <label for="password" class="control-label">Contraseña</label>
+                      <input id="password" type="password" name="password" class="form-control">
                     </div>
-                    <div class="input-field col-xs-12 top">
-                      <i class="material-icons prefix">vpn_key</i>
-                      <label for="confirm-password">Confirmar Contraseña</label>
-                      <input id="confirm-password" type="password" name="confirm-password" class="validate">
+                    <div class="form-group label-floating col-xs-12 top">
+                      <label for="confirm-password" class="control-label">Confirmar Contraseña</label>
+                      <input id="confirm-password" type="password" name="confirm-password" class="form-control">
                     </div>
-                    <div class="input-field col-xs-12 top">
-                      <button class="btn waves-effect waves-light indigo full-width" type="submit" name="iniciar">
+                    <div class="input-group col-xs-12 top">
+                      <button class="btn btn-raised btn-inverse full-width" type="submit" name="iniciar">
                         Regístrate
                       </button>
                     </div>

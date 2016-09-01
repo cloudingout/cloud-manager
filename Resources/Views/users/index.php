@@ -10,16 +10,15 @@
           <div class="row center-xs">
             <div class="col-xs-12 text-left">
               <div class="box">
-                <h1 class="title no-margin text-center">Usuarios registrados</h1>
+                <h1 class="title no-margin">Usuarios</h1>
                 <div class="top-space"></div>
                 <div class="divider"></div>
-                <table class="responsive-table centered bordered">
+                <table class="table table-striped">
                   <thead>
                     <th>UID</th>
                     <th>Tipo de usuario</th>
                     <th>Nombres</th>
                     <th>Correo Electrónico</th>
-                    <th>Contacto</th>
                     <th>Saldo</th>
                     <th colspan="2">Opciones</th>
                   </thead>

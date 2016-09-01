@@ -108,6 +108,7 @@ class Auth extends Database implements IAuth
 
         if (!empty($this->checkCredentials())) {
           $_SESSION['user_id'] = $this->user[0]['id'];
+          $_SESSION['user'] = $this->user[0]['name'] . " " . $this->user[0]['last_name'];
           
           return true;
         } else {
@@ -132,6 +133,7 @@ class Auth extends Database implements IAuth
   {
     $sql  = "SELECT id, ";
     $sql .= "       name, ";
+    $sql .= "       last_name, ";
     $sql .= "       email, ";
     $sql .= "       password ";
     $sql .= "FROM   users ";
