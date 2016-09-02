@@ -28,6 +28,11 @@ class user
   private $expirationToken;
 
   /**
+  * @var array $errors 
+  */
+  private $errors;
+
+  /**
   * Almacena la conexión a la base de datos
   * @var database
   */
@@ -136,6 +141,30 @@ class user
     $result = $this->database->query($sql, $values);
 
     return (!empty($result)) ? $result : false;
+  }
+
+  /**
+  * Comprueba la existencia de un usuario 
+  * 
+  * @return boolean
+  */
+  public function isThereaUser()
+  {
+    $sql  = 'SELECT id, ';
+    $sql .= '       name, ';
+    $sql .= '       email ';
+    $sql .= 'FROM   users ';
+    $sql .= 'WHERE  email = :email ';
+
+    $values = ['email' => $this->email];
+
+    $isThereaUser = $this->database->query($sql, $values);
+
+    if (!empty($isThereaUser)) {
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
@@ -146,25 +175,30 @@ class user
   */
   public function signUp()
   {
-    $sql  = 'INSERT INTO  users (';
-    $sql .= '             id, ';
-    $sql .= '             email, ';
-    $sql .= '             password ';
-    $sql .= ') VALUES (';
-    $sql .= '             :id, ';
-    $sql .= '             :email, ';
-    $sql .= '             :password '; 
-    $sql .= ')';
+    if (!$this->isThereaUser()) {
+      $sql  = 'INSERT INTO  users (';
+      $sql .= '             id, ';
+      $sql .= '             email, ';
+      $sql .= '             password ';
+      $sql .= ') VALUES (';
+      $sql .= '             :id, ';
+      $sql .= '             :email, ';
+      $sql .= '             :password '; 
+      $sql .= ')';
 
-    $values = [
-      'id'              => null, 
-      'email'           => $this->email, 
-      'password'        => $this->middlesbrough->encrypt($this->password)
-    ];
+      $values = [
+        'id'              => null, 
+        'email'           => $this->email, 
+        'password'        => $this->middlesbrough->encrypt($this->password)
+      ];
 
-    $query = $this->database->query($sql, $values);
+      $query = $this->database->query($sql, $values);
 
-    return ($query) ? true : false;
+      return ($query) ? true : false;
+    } else {
+      $this->errors[] = "El correo ya esta en uso!";
+      return false;
+    }
   }
 
   /**
@@ -216,5 +250,19 @@ class user
     $result = $this->database->query($sql, $values);
 
     return $result ? true : false;
+  }
+
+  /**
+  * Obtiene el estado de los errores 
+  * 
+  * @return array || boolean 
+  */
+  public function getStatus()
+  {
+    if (count($this->errors) > 0) {
+      return $this->errors;
+    } else {
+      return ;
+    }
   }
 }

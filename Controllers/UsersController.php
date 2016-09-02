@@ -65,8 +65,10 @@ class UsersController
 
         $create = $this->user->signUp();
 
-        if ($create) {
+        if ($create === true) {
           $this->middlesbrough->redirect(URL . "auth");
+        } else {
+          return $this->user->getStatus();
         }
       }
     }

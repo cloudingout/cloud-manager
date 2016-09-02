@@ -30,6 +30,16 @@
                       </button>
                     </div>
                 </form>
+                {% if data is not empty %}
+                  <div class="alert alert-dismissible alert-warning top relative">
+                    <button type="button" class="close" data-dismiss="alert">x</button>
+                      <ul>
+                        {% for warning in data %}
+                          <li>{{ warning }}</li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
               </div>
             </div>
           </div>
