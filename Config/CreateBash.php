@@ -51,13 +51,13 @@ class CreateBash {
 		La primera indica el directorio base donde se guardaran los script's
 		La segunda contine la forma somo se inician los script's bash
 		*/
-		if ($image_name AND $vmname AND $this->name = "launch")
+		if (!empty($image_name) AND !empty($vmname) AND $this->name == "launch")
 		{
 			$this->info->set('vmname',$vmname);
 			$this->info->set('image_name',$image_name);
 		}
 
-		$bash_folder = "/home/luisito/www/Cloud/cloud-manager/Bash/";
+		$bash_folder = "/home/luisito/Proyectos/cloud-manager/Bash/";
 		$bash_init = "#!/bin/bash";
 
 		switch ($this->name) 
@@ -65,8 +65,8 @@ class CreateBash {
 			case "launch":				
 				/* La variable $this->content contiene el cuerpo del documento bash */
 				$this->content[] = $bash_init;
-				$this->content[] = "lxc launch images:". $this->info->get('image_name') ." ".$this->info->get('vmname');				
-				$this->content[] = "sleep(2)";
+				$this->content[] = "lxc launch ". $this->info->get('image_name') ." ".$this->info->get('vmname');				
+				$this->content[] = "sleep 2";
 				break;
 			case "":
 				/* La variable $this->content contiene el cuerpo del documento bash */
@@ -118,7 +118,8 @@ class CreateBash {
 		/*Definimos los parametros del server al que nos conectaremos */
 		$this->remote->add('user','root');
 		$this->remote->add('host','172.16.0.45');
-		$this->remote->add('key','/home/luisito/Proyectos/cloud-manager/Keys/Key_app.local');
+		#se comento porque se añadio la clave publica al usuario por defecto.
+		#$this->remote->add('key','/home/luisito/Proyectos/cloud-manager/Keys/Key_app.local');
 		/*Ejecutamos el script en el servidor remoto */
 		$retornos = $this->remote->script($file);
 		/*Retornamos el contenido */

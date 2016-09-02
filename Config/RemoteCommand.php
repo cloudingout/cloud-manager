@@ -30,7 +30,9 @@ namespace Config;
 		public function script ($script)
 		{
 			#construccion del comando 
-			$new_comand = 'ssh -i ' . $this->key . ' ' . $this->user . '@'. $this->host . " bash -s" .' < ' . $script;
+			#dependiendo de la plataforma se habilita $new_command
+			#$new_comand = 'ssh -i ' . $this->key . ' ' . $this->user . '@'. $this->host . " bash -s" .' < ' . $script;
+			$new_comand = 'ssh ' . $this->user . '@'. $this->host . " bash -s" .' < ' . $script;
 			$resultado = shell_exec($new_comand);
 			#ejecucion y retorno del comando	
 			return $resultado;

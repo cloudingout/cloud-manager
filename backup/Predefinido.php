@@ -7,6 +7,8 @@ use Config\RemoteCommand as Remote;
 *
 * @package Predefinido
 * @author Luis Penagos <luispenagos91@gmail.com>
+* 
+* Esta clase se deja de usar porque se creo la clase CreateBash
 */
 
 class Predefinido {
