@@ -1,6 +1,7 @@
 <?php
 
 namespace Config;
+use App\Middlesbrough as middlesbrough;
 
 /**
 * Carga las vistas y crea objetos a través de la URL
@@ -11,7 +12,6 @@ namespace Config;
 */
 class Bootstrap
 {
-
   /**
   * Obtiene los controladores, métodos y argumentos desde la clase Request y
   * crea un objeto del controlador obtenido
@@ -51,12 +51,12 @@ class Bootstrap
 
     if (is_readable($url)) {
 
+      $sessions = '';
+
       if (!empty($_SESSION)) {
         $sessions = $_SESSION;
-      } else {
-        $sessions = '';
       }
-      
+
       self::loadTwig($fileSystem, $data, $request->getMethod(), $sessions);
       // require $url;
     } else {
@@ -83,7 +83,8 @@ class Bootstrap
       'data'      => $data,
       'method'    => $method,
       'assets'    => ASSETS, 
-      'sessions'  => $sessions
+      'sessions'  => $sessions, 
+      'errors'    => $errors 
     ));
   }
 }

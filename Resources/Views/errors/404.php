@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Error 404</title>
-  </head>
-  <body>
-    <h2>Error 404 Not Found</h2>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Errors</title>
+</head>
+<body>
+  {% if errors is not empty %}
+    {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+  {% else %}
+      <li>Holaaa</li>
+  {% endif %}
+</body>
 </html>

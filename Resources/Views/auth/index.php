@@ -25,6 +25,16 @@
                       </button>
                     </div>
                 </form>
+                {% if data is not empty %}
+                  <div class="alert alert-dismissible alert-danger top relative col-xs-6 col-xs-offset-3">
+                    <button type="button" class="close" data-dismiss="alert" style="padding-right: 20px">×</button>
+                    <ul>                    
+                  {% for error in data %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
               </div>
             </div>
           </div>

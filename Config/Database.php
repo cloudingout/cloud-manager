@@ -83,7 +83,7 @@ class Database
         } else {
           $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-          $result = (!empty($result)) ? $result : true;
+          $result = (!empty($result)) ? $result : '';
         }
 
 

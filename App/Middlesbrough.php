@@ -169,7 +169,7 @@ class Middlesbrough
     if (count($this->errors) > 0) {
       return $this->errors;
     } else {
-      return true;
+      return ;
     }
   }
 

@@ -54,7 +54,7 @@ class AuthController
       $this->middlesbrough->redirect(URL . "deploymentvm");
     } else {
       if (isset($_POST['login'])) {
-        $this->auth->set('email', $_POST['email']);
+        $this->auth->set('email', $this->middlesbrough->validateEmail($_POST['email']));
         $this->auth->set('password', $_POST['password']);
 
         $authenticate = $this->auth->authenticate();
@@ -62,7 +62,7 @@ class AuthController
         if ($authenticate) {
           $this->middlesbrough->redirect(URL . "users");
         } else {
-          $this->middlesbrough->redirect(URL . "errors");
+          return $this->middlesbrough->isErrors();
         }
       }
     }

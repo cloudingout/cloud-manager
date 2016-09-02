@@ -133,6 +133,10 @@ textarea {
   width: 100%;
 }
 
+.relative {
+  position: relative;
+}
+
 .no-margin {
   margin: 0;
 }
