@@ -3,6 +3,7 @@
 namespace Models;
 use Config\Database as Database;
 use App\Middlesbrough as Middlesbrough;
+use \PDO;
 
 /**
 * Administración de usuarios; creación, eliminación, actualización y lectura 
@@ -22,7 +23,6 @@ class user
   public $lastName;
   public $email;
   protected $password;
-  private $telephone;
   private $balance;
   private $token;
   private $expirationToken;
@@ -138,7 +138,7 @@ class user
 
     $values = ['id' => $this->id];
 
-    $result = $this->database->query($sql, $values);
+    $result = $this->database->query($sql, $values)->fetchAll(PDO::FETCH_ASSOC);
 
     return (!empty($result)) ? $result : false;
   }
@@ -160,7 +160,7 @@ class user
 
     $isThereaUser = $this->database->query($sql, $values);
 
-    if (!empty($isThereaUser)) {
+    if ($isThereaUser->rowCount() > 0) {
       return true;
     } else {
       return false;
@@ -194,7 +194,12 @@ class user
 
       $query = $this->database->query($sql, $values);
 
-      return ($query) ? true : false;
+      if (is_object($query)) {
+        return true;
+      } else {
+        return false;
+      }
+
     } else {
       $this->errors[] = "El correo ya esta en uso!";
       return false;
@@ -212,15 +217,13 @@ class user
     $sql .= 'SET    name = :name, ';
     $sql .= '       last_name = :last_name, ';
     $sql .= '       email = :email, ';
-    $sql .= '       telephone = :telephone, ';
     $sql .= '       update_at = NOW() ';
     $sql .= 'WHERE  id = :id ';
 
     $values = [
       'name'      => $this->name, 
       'last_name' => $this->lastName, 
-      'email'     => $this->email, 
-      'telephone' => $this->telephone, 
+      'email'     => $this->email,  
       'id'        => $this->id, 
       'status'    => $this->status 
     ];
@@ -247,8 +250,7 @@ class user
       'id'     => $this->id
     ];
 
-    $result = $this->database->query($sql, $values);
-
+    $result = $this->database->query($sql, $values)->execute();
     return $result ? true : false;
   }
 

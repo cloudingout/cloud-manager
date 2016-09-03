@@ -58,7 +58,7 @@ class AuthController
         $this->auth->set('password', $_POST['password']);
 
         $authenticate = $this->auth->authenticate();
-
+        
         if ($authenticate) {
           $this->middlesbrough->redirect(URL . "users");
         } else {

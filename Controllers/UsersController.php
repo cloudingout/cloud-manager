@@ -59,18 +59,27 @@ class UsersController
   public function signUp()
   {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-      if ($_POST['confirm-password'] == $_POST['password']) {
-        $this->user->set("email", $this->middlesbrough->validateEmail($_POST['email']));
-        $this->user->set("password", $this->middlesbrough->validateText($_POST['password'], 1, 12, false, true, true));
+      if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm-password'])) {
+        if ($_POST['confirm-password'] == $_POST['password']) {
+          $this->user->set("email", $this->middlesbrough->validateEmail($_POST['email']));
+          $this->user->set("password", $this->middlesbrough->validateText($_POST['password'], 1, 12, false, true, true));
 
-        $create = $this->user->signUp();
-
-        if ($create === true) {
-          $this->middlesbrough->redirect(URL . "auth");
+          $create = $this->user->signUp();
+          
+          if ($create === true) {
+            $this->middlesbrough->redirect(URL . "auth");
+          } else {
+            return $this->user->getStatus();
+          }
         } else {
-          return $this->user->getStatus();
+          $mensaje[] = "Las contraseñas no coinciden!";
+          return $mensaje;
         }
+      } else {
+        $mensaje[] = "Por favor complete los campos";
+        return $mensaje;
       }
+
     }
   }
 
@@ -90,10 +99,9 @@ class UsersController
       $this->user->set('name', $_POST['name']);
       $this->user->set('lastName', $_POST['last-name']);
       $this->user->set('email', $_POST['email']);
-      $this->user->set('telephone', $_POST['telephone']);
 
       $this->user->update();
-      header('Location: ' . URL . 'users');
+      $this->middlesbrough->redirect(URL . "users");
     }
   }
 
@@ -108,13 +116,13 @@ class UsersController
     $this->user->set('id', $id);
     $result = $this->user->view();
 
-    if ($result[0]['status'] === '1') {
+    if ($result[0]['status'] == '1') {
       $this->user->set('status', '2');
       $this->user->changeStatus();
     } else {
       $this->user->set('status', '1');
       $this->user->changeStatus();
     }
-      header('Location: ' . URL . 'users');
+      $this->middlesbrough->redirect(URL . 'users');
   }
 }

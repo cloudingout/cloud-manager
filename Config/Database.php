@@ -81,11 +81,8 @@ class Database
         if (!$statement->execute()) {
           print_r($statement->errorInfo());
         } else {
-          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-          $result = (!empty($result)) ? $result : '';
+          return $statement;
         }
-
 
         $statement->closeCursor();
 
@@ -93,6 +90,5 @@ class Database
         echo 'Error en la ejecución: ' .$e->getMessage();
       }
     }
-    return $result;
   }
 }

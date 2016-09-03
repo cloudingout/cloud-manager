@@ -104,11 +104,11 @@ class Auth extends Database implements IAuth
       ];
 
       $user = $this->database->query($sql, $values);
-      if (count($user) > 0) {
+      if ($user->rowCount() > 0) {
 
         if (!empty($this->checkCredentials())) {
-          $_SESSION['user_id'] = $this->user[0]['id'];
-          $_SESSION['user'] = $this->user[0]['name'] . " " . $this->user[0]['last_name'];
+          $_SESSION['user_id'] = $this->user['id'];
+          $_SESSION['user'] = $this->user['name'] . " " . $this->user['last_name'];
           
           return true;
         } else {
@@ -145,7 +145,8 @@ class Auth extends Database implements IAuth
       'password'  => $this->middlesbrough->encrypt($this->password) 
     ];
 
-    $this->user = $this->database->query($sql, $values);
+    $this->user = $this->database->query($sql, $values)
+                                 ->fetch(PDO::FETCH_ASSOC);
 
     if (count($this->user) > 0) {
       return $this->user;
