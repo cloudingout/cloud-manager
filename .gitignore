@@ -36,3 +36,6 @@
 .trashes
 ehthumbs.db
 Thumbs.db
+
+# Keys #
+./Keys/Key_app.local
