@@ -224,13 +224,16 @@ class user
       'name'      => $this->name, 
       'last_name' => $this->lastName, 
       'email'     => $this->email,  
-      'id'        => $this->id, 
-      'status'    => $this->status 
+      'id'        => $this->id
     ];
 
     $result = $this->database->query($sql, $values);
 
-    return $result ? true : false;
+    if (is_object($result)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**

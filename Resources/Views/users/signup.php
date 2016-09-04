@@ -38,8 +38,8 @@
                           <li>{{ warning }}</li>
                         {% endfor %}
                       </ul>
-                    {% endif %}
                   </div>
+                {% endif %}
               </div>
             </div>
           </div>

@@ -58,7 +58,6 @@ class Middlesbrough
   public function validateText($string, $min, $max, $spaces, $required, $stringNumeric)
   {
     $string = $this->cleaningCharacters($string);
-
     if (!empty($min)) {
       if (strlen($string) < $min) {
         $this->errors[] = "El campo es obligatorio";
@@ -76,10 +75,10 @@ class Middlesbrough
 
     if ($spaces) {
       // Solo espacios y letras
-      $string = preg_match("/^[a-zA-Z ]*$/", $string);
+      $spaces = preg_match("/^[a-zA-Z ]*$/", $string);
     }
 
-    if ($string) {
+    if ($spaces) {
       return $string;
     } else {
       $this->errors[] = "Error inesperado";
@@ -88,13 +87,11 @@ class Middlesbrough
 
     if ($stringNumeric) {
       // Numeros, letras y espacios 
-      $string = preg_match("/^[a-zA-Z0-9 ]*$/", $string);
+      return $string = preg_match("/^[a-zA-Z0-9 ]*$/", $string);
     } else {
       // Numeros y letras
-      $string = preg_match("/^[a-zA-Z0-9]*$/", $string);
+      return $string = preg_match("/^[a-zA-Z0-9]*$/", $string);
     }
-
-    return $string;
   }
 
   /**

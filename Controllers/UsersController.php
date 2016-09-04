@@ -92,16 +92,30 @@ class UsersController
   public function update($id)
   {
     if (!$_POST) {
-      $this->user->set('id', $id);
       return $this->user->view();
     } else {
-      $this->user->set('id', $id);
-      $this->user->set('name', $_POST['name']);
-      $this->user->set('lastName', $_POST['last-name']);
-      $this->user->set('email', $_POST['email']);
 
-      $this->user->update();
-      $this->middlesbrough->redirect(URL . "users");
+      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+        if (!empty($_POST['name']) && !empty($_POST['last-name']) && !empty($_POST['email'])) {          
+          $this->user->set('id', (int)$id);
+          $this->user->set('name', $this->middlesbrough->validateText($_POST['name'], false, false, true, false, false));
+          $this->user->set('lastName', $this->middlesbrough->validateText($_POST['last-name'], false, false, true, false, false));
+          $this->user->set('email', $this->middlesbrough->validateEmail($_POST['email']));
+
+          $errors = $this->middlesbrough->isErrors();
+
+          if (count($errors) > 0) {
+            return $errors;
+          } else {
+            $update = $this->user->update();
+            $this->middlesbrough->redirect(URL . "users");
+          }
+        } else {
+          $mensaje[] = "Por favor complete los campos!";
+          return $mensaje;
+        }
+      }
     }
   }
 

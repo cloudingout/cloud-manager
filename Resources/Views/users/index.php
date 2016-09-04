@@ -31,13 +31,13 @@
                       <td>{{ user.email }}</td>
                       <td>${{ user.balance }} USD</td>
                       <td>
-                        <a href="{{ URL }}users/update/{{ user.id }}" title="Editar"><i class="material-icons">mode_edit</i></a>
+                        <a href="{{ URL }}users/update/{{ user.id }}" title="Editar"><i class="material-icons">mode_edit</i> Editar</a>
                       </td>
                       <td>
                       {% if user.status == 1 %}
-                        <a href="{{ URL }}users/changeStatus/{{ user.id }}" title="Desactivar"><i class="material-icons">lock_open</i></a>
+                        <a href="{{ URL }}users/changeStatus/{{ user.id }}" title="Desactivar"><i class="material-icons">lock_open</i> Desactivar</a>
                       {% else %}
-                        <a href="{{ URL }}users/changeStatus/{{ user.id }}" title="Activar"><i class="material-icons">lock_outline</i></a>
+                        <a href="{{ URL }}users/changeStatus/{{ user.id }}" title="Activar"><i class="material-icons">lock_outline</i> Activar</a>
                       {% endif %}
                       
                       </td>

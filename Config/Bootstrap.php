@@ -39,7 +39,7 @@ class Bootstrap
       if (!isset($argument)) {
         $data = call_user_func([$controller, $method]);
       } else {
-        $data = call_user_func_array([$controller, $method], $argument);
+        $data = call_user_func_array([$controller, $method], $argument);        
       }
 
     }
@@ -57,7 +57,8 @@ class Bootstrap
         $sessions = $_SESSION;
       }
 
-      self::loadTwig($fileSystem, $data, $request->getMethod(), $sessions);
+      $requesMethod = $_SERVER['REQUEST_METHOD'];
+      self::loadTwig($fileSystem, $data, $request->getMethod(), $sessions, $requesMethod);
       // require $url;
     } else {
       // Definimos una vista en caso de que no se encuentre la URL
@@ -69,7 +70,7 @@ class Bootstrap
   /**
   * Carga de motor de plantillas Twig
   */
-  public function loadTwig($fileSystem, $data, $method, $sessions)
+  public function loadTwig($fileSystem, $data, $method, $sessions, $requesMethod)
   {
     require_once ROOT . '..' . DS . 'vendor' . DS . 'lib' . DS . 'Twig' . DS . 'Autoloader.php';
     \Twig_Autoloader::register();
@@ -84,7 +85,8 @@ class Bootstrap
       'method'    => $method,
       'assets'    => ASSETS, 
       'sessions'  => $sessions, 
-      'errors'    => $errors 
+      'errors'    => $errors, 
+      'request'   => $requesMethod
     ));
   }
 }
