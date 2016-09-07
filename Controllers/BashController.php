@@ -24,7 +24,14 @@ use Config\Info as Info;
 
 		public function index()
 		{
-			$this->bash->start_bash('launch','ubuntu:16.04','cristian','tier1');
+			$names = ['luis','mv2','mv3'];
+
+			foreach($names as $name)
+			{			
+				$this->bash->start_bash('launch',$name,'ubuntu:16.04','tier0');
+				sleep(1);
+			}
+			#start_bash('accion','nombre de la vm',' nombre template','plan usado')
 			#$this->bash->start_bash('update');
 		}
 }
