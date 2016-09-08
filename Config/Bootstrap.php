@@ -45,9 +45,9 @@ class Bootstrap
     }
     
     // Cargamos las vistas
-    $url = ROOT . '../Resources/Views' . DS . strtolower($request->getController()) . DS . $request->getMethod() . '.php';
+    $url = ROOT . '../Resources/Views' . DS . strtolower($request->getController()) . DS . $request->getMethod() . '.twig';
 
-    $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.php';
+    $fileSystem = strtolower($request->getController()) . DS . $request->getMethod() . '.twig';
 
     if (is_readable($url)) {
 

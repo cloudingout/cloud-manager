@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-     <!-- Material Design fonts -->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Import Bootstrap Material Design -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
 
-    <!-- Bootstrap Material Design -->
-    <link rel="stylesheet" type="text/css" href="{{ assets }}/css/bootstrap-material-design.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ assets }}/css/ripples.min.css">
-
-    <!-- Import flexboxgrid -->
-    <link rel="stylesheet" href="{{ assets }}css/flexboxgrid.css">
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Import my css style -->
     <link rel="stylesheet" href="{{ assets }}css/main.css">
     <meta charset="utf-8">
@@ -25,12 +21,14 @@
   <body>
     {% include "partials/navigation.html" %}
     {% block content %} {% endblock content %}
-    <!--Import jQuery -->
-    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="{{ assets }}js/ripples.min.js"></script>
-    <!-- Import material.min.js -->
-    <script src="{{ assets }}js/material.min.js"></script>
-    <script src="{{ assets }}js/main.js"></script>
+     <!-- Scripts -->
+    <script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+    <script>
+        $.material.init();
+    </script>
   </body>
 </html>

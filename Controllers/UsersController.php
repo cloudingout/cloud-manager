@@ -62,12 +62,12 @@ class UsersController
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm-password'])) {
         if ($_POST['confirm-password'] == $_POST['password']) {
           $this->user->set("email", $this->middlesbrough->validateEmail($_POST['email']));
-          $this->user->set("password", $this->middlesbrough->validateText($_POST['password'], 1, 12, false, true, true));
+          $this->user->set("password", $_POST['password']);
 
           $create = $this->user->signUp();
           
           if ($create === true) {
-            $this->middlesbrough->redirect(URL . "auth");
+            $this->middlesbrough->redirect("auth");
           } else {
             return $this->user->getStatus();
           }
@@ -91,16 +91,16 @@ class UsersController
   */
   public function update($id)
   {
+    $this->user->set('id', (int)$id);
     if (!$_POST) {
-      return $this->user->view();
+      return $this->user->findUser();
     } else {
 
       if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-        if (!empty($_POST['name']) && !empty($_POST['last-name']) && !empty($_POST['email'])) {          
-          $this->user->set('id', (int)$id);
-          $this->user->set('name', $this->middlesbrough->validateText($_POST['name'], false, false, true, false, false));
-          $this->user->set('lastName', $this->middlesbrough->validateText($_POST['last-name'], false, false, true, false, false));
+        if (!empty($_POST['name']) && !empty($_POST['last-name']) && !empty($_POST['email'])) {
+          $this->user->set('name', $_POST['name']);
+          $this->user->set('lastName', $_POST['last-name']);
           $this->user->set('email', $this->middlesbrough->validateEmail($_POST['email']));
 
           $errors = $this->middlesbrough->isErrors();
@@ -108,11 +108,11 @@ class UsersController
           if (count($errors) > 0) {
             return $errors;
           } else {
-            $update = $this->user->update();
-            $this->middlesbrough->redirect(URL . "users");
+            $this->user->update();
+            $this->middlesbrough->redirect('users');
           }
         } else {
-          $mensaje[] = "Por favor complete los campos!";
+          $mensaje[] = 'Por favor complete los campos!';
           return $mensaje;
         }
       }
@@ -125,18 +125,18 @@ class UsersController
   *
   * @return void
   */
-  public function changeStatus($id)
+  public function edit($id)
   {
     $this->user->set('id', $id);
-    $result = $this->user->view();
+    $result = $this->user->findUser();
 
-    if ($result[0]['status'] == '1') {
+    if ($result['status'] == '1') {
       $this->user->set('status', '2');
-      $this->user->changeStatus();
+      $this->user->ActivateOrInactivate();
     } else {
       $this->user->set('status', '1');
-      $this->user->changeStatus();
+      $this->user->ActivateOrInactivate();
     }
-      $this->middlesbrough->redirect(URL . 'users');
+      $this->middlesbrough->redirect('users');
   }
 }

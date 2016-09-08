@@ -2,15 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Errors</title>
+  <title>404 Not Found</title>
 </head>
 <body>
-  {% if errors is not empty %}
-    {% for error in errors %}
-        {{ error }}
-    {% endfor %}
-  {% else %}
-      <li>Holaaa</li>
-  {% endif %}
+  <h2>404 Not Found</h2>
 </body>
 </html>

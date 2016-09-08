@@ -22,24 +22,7 @@ class Middlesbrough
   *
   */
   private $longitudSalt = 5;
-
-  /**
-  * @var string salt
-  */
-  private $salt = "!@*.5233";
-
-  /**
-  * Encripta una cadena de texto, dada por el parámetro $string
-  * 
-  * @param string $string una cadena de texto dada por el usuario
-  * @return string cadena de texto encriptada
-  */
-  public function encrypt($string)
-  {
-    $out = hash('sha1', $string.$this->salt);
-    return $this->salt.$this->longitudSalt.$out.$this->salt;
-  }
-
+  
   /**
   * Validación de texto, con espacios o sin ellos, posibilidad de enviar longitud 
   * mínima y máxima del string. Agrega una cadena de texto al array $errors en 
@@ -178,6 +161,6 @@ class Middlesbrough
   */
   public function redirect($url)
   {
-    header("Location: $url");
+    header("Location: " . URL . $url);
   }
 }

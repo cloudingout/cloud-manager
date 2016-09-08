@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+  <div class="big-padding text-center blue-grey white-text">
+    <h1>Usuarios <i class="material-icons md-48">supervisor_account</i></h1>
+  </div>
+
+  <div class="container">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Rol</th>
+          <th>Nombres</th>
+          <th>Correo Electrónico</th>
+          <th>Saldo</th>
+          <th colspan="2" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for user in data %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.user_type }}</td>
+          <td>{{ user.name }} {{ user.last_name }}</td>
+          <td>{{ user.email }}</td>
+          <td>${{ user.balance }} USD</td>
+          <td>
+            <a href="{{ URL }}users/update/{{ user.id }}" title="Editar"><i class="material-icons">mode_edit</i> Editar</a>
+          </td>
+          <td>
+            {% if user.status == 1 %}
+              <a href="{{ URL }}users/edit/{{ user.id }}" title="Desactivar"><i class="material-icons">lock_open</i> Desactivar</a>
+            {% else %}
+              <a href="{{ URL }}users/edit/{{ user.id }}" title="Activar"><i class="material-icons">lock_outline</i> Activar</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

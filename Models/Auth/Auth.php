@@ -90,31 +90,27 @@ class Auth extends Database implements IAuth
   public function authenticate()
   {
     try {
+
       $sql  = "SELECT id, "; 
       $sql .= "       name, ";
       $sql .= "       last_name, ";
       $sql .= "       email ";
       $sql .= "FROM   users ";
-      $sql .= "WHERE  email = :email ";
-      $sql .= "AND    password = :password ";
+      $sql .= "WHERE  email = '$this->email' ";
 
-      $values = [
-        'email'     => $this->email, 
-        'password'  => $this->middlesbrough->encrypt($this->password)
-      ];
+      $statement = $this->database->getConnection()
+                                  ->query($sql)
+                                  ->fetch(PDO::FETCH_ASSOC);
 
-      $user = $this->database->query($sql, $values);
-      if ($user->rowCount() > 0) {
-
-        if (!empty($this->checkCredentials())) {
-          $_SESSION['user_id'] = $this->user['id'];
-          $_SESSION['user'] = $this->user['name'] . " " . $this->user['last_name'];
-          
-          return true;
-        } else {
-          return false;
-        }
-
+      if (password_verify($this->password, $this->getDBPassword()['password']) ){
+        $_SESSION['id'] = $statement['id'];
+        $_SESSION['name'] = $statement['name'];
+        $_SESSION['last_name'] = $statement['last_name'];
+        $_SESSION['email'] = $statement['email'];
+        
+        return true;
+      } else {
+        return false;
       }
 
     } catch (PDOException $e) {
@@ -122,36 +118,14 @@ class Auth extends Database implements IAuth
     }
   }
 
-  /** 
-  * Verifica si las credenciales del usuario que intenta ingresar coinciden 
-  * con los datos registrados 
-  *
-  * @access protected
-  * @return boolean
-  */
-  protected function checkCredentials()
+  protected function getDBPassword()
   {
-    $sql  = "SELECT id, ";
-    $sql .= "       name, ";
-    $sql .= "       last_name, ";
-    $sql .= "       email, ";
-    $sql .= "       password ";
-    $sql .= "FROM   users ";
-    $sql .= "WHERE  email = :email ";
-    $sql .= "AND    password = :password ";
+    $sql  = "SELECT password FROM users WHERE email = :email ";
 
-    $values = [
-      'email'     => $this->email, 
-      'password'  => $this->middlesbrough->encrypt($this->password) 
-    ];
-
-    $this->user = $this->database->query($sql, $values)
-                                 ->fetch(PDO::FETCH_ASSOC);
-
-    if (count($this->user) > 0) {
-      return $this->user;
-    } else {
-      return;
+    $connect = $this->database->getConnection();
+    $statement = $connect->prepare($sql);
+    if ($statement->execute([':email' => $this->email])) {
+      return $statement->fetch(PDO::FETCH_ASSOC);
     }
   }
 
@@ -163,7 +137,7 @@ class Auth extends Database implements IAuth
   */
   public function isLoggedIn()
   {
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['id'])) {
       return true;
     } else {
       return false;
@@ -179,9 +153,10 @@ class Auth extends Database implements IAuth
   public function logout()
   {
     session_destroy();
-    unset($_SESSION['user_id']);
-    unset($_SESSION['user']);
-    return true;
+    unset($_SESSION['id']);
+    unset($_SESSION['name']);
+    unset($_SESSION['last_name']);
+    unset($_SESSION['email']);
   }
 
 }

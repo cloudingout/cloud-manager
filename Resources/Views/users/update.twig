@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block title %}Usuarios - Actualizar{% endblock %}
+
+{% block content %}
+<div class="container white">
+  <form action="" method="POST">
+    <h1>Editar Usuario</h1>
+    <div class="form-group">
+      <label for="name" class="control-label">Nombres</label>
+      <input type="text" name="name" class="form-control" id="name" value="{{ data['name'] }}">
+    </div>
+    <div class="form-group">
+      <label for="last-name" class="control-label">Apellidos</label>
+      <input type="text" name="last-name" class="form-control" id="last-name" value="{{ data['last_name'] }}">
+    </div>
+    <div class="form-group">
+      <label for="email" class="control-label">Correo electrónico: </label>
+      <input type="email" name="email" class="form-control" id="email" value="{{ data['email'] }}">
+    </div>
+    <div class="form-group text-right">
+      <a href="{{ URL }}/users">Regresar a la lista de usuarios</a>
+      <input type="submit" value="Enviar" class="btn btn-success">
+    </div>
+  </form>
+</div>
+
+{% endblock %}

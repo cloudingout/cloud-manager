@@ -44,7 +44,7 @@ class Database
                                         $password,
                                         array(
                                           PDO::MYSQL_ATTR_INIT_COMMAND  => "SET NAMES $charset"
-                                          )
+                                        )
                                         );
       } catch (PDOException $e) {
         die('Error, no se puede conectar a la base de datos ' . $e->getMessage());
@@ -52,11 +52,43 @@ class Database
   }
 
   /**
-  * Obtiene la conexión a la base de datos
+  * Consultas a la base de datos(INSERT, SELECT, UPDATE & DELETE)
   *
+  * @param $queryString - string: almacena el string SQL - requerido
+  * @param $values - array - Valores necesarios en caso de ser necesario, puede 
+  *        estar vacío o no dependiendo de la condición de $queryString
+  *
+  * @return $result - array
   */
-  public function getConnection()
+  public function query($queryString, $values = [])
   {
-    return $this->connect();
+    $result = false;
+    
+    if ($statement = $this->connect()->prepare($queryString)) {
+
+      $preg = preg_match_all("/(:\w+)/", $queryString, $fields);
+
+      if ($preg) {
+        $fields = array_pop($fields);
+
+        foreach ($fields as $field) {
+          $statement->bindValue($field, $values[substr($field, 1)]);
+        }
+      }
+
+      try {
+
+        if (!$statement->execute()) {
+          print_r($statement->errorInfo());
+        } else {
+          return $statement;
+        }
+
+        $statement->closeCursor();
+
+      } catch (PDOException $e) {
+        echo 'Error en la ejecución: ' .$e->getMessage();
+      }
+    }
   }
 }

@@ -115,6 +115,24 @@ class user
   }
 
   /**
+  * Busca los datos del usuario que será editado
+  *
+  */
+  public function findUser()
+  {
+    $sql  = 'SELECT name, ';
+    $sql .= '       last_name, ';
+    $sql .= '       email, ';
+    $sql .= '       status ';
+    $sql .= 'FROM   users ';
+    $sql .= 'WHERE  id = '. $this->id;
+
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetch(PDO::FETCH_ASSOC);
+  }
+
+  /**
   * Selecciona los usuarios de la base de datos
   * 
   * @return array 
@@ -130,17 +148,11 @@ class user
     $sql .= '           a.balance ';
     $sql .= 'FROM       users AS a ';
     $sql .= 'LEFT JOIN  users_types as b ON(b.id = a.users_types_id) ';
-
-    if (!empty($this->id)) {
-    $sql .= 'WHERE      a.id = :id ';
-    }
     $sql .= 'ORDER BY   a.id DESC ';
 
-    $values = ['id' => $this->id];
-
-    $result = $this->database->query($sql, $values)->fetchAll(PDO::FETCH_ASSOC);
-
-    return (!empty($result)) ? $result : false;
+    $statement = $this->database->getConnection()->prepare($sql);
+    $statement->execute();
+    return $statement->fetchAll();
   }
 
   /**
@@ -148,23 +160,17 @@ class user
   * 
   * @return boolean
   */
-  public function isThereaUser()
+  public function findUserInDB()
   {
-    $sql  = 'SELECT id, ';
-    $sql .= '       name, ';
+    $sql  = 'SELECT name, ';
+    $sql .= '       last_name, ';
     $sql .= '       email ';
     $sql .= 'FROM   users ';
-    $sql .= 'WHERE  email = :email ';
+    $sql .= 'WHERE  email = '. "'$this->email'";
 
-    $values = ['email' => $this->email];
-
-    $isThereaUser = $this->database->query($sql, $values);
-
-    if ($isThereaUser->rowCount() > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetch(PDO::FETCH_ASSOC);
 
   }
 
@@ -175,7 +181,7 @@ class user
   */
   public function signUp()
   {
-    if (!$this->isThereaUser()) {
+    if (empty($this->findUserInDB())) {
       $sql  = 'INSERT INTO  users (';
       $sql .= '             id, ';
       $sql .= '             email, ';
@@ -183,22 +189,18 @@ class user
       $sql .= ') VALUES (';
       $sql .= '             :id, ';
       $sql .= '             :email, ';
-      $sql .= '             :password '; 
+      $sql .= '             :password ';
       $sql .= ')';
-
+      
       $values = [
         'id'              => null, 
-        'email'           => $this->email, 
-        'password'        => $this->middlesbrough->encrypt($this->password)
+        'email'           => $this->email,
+        'password'        => password_hash($this->password, PASSWORD_BCRYPT)
       ];
 
-      $query = $this->database->query($sql, $values);
-
-      if (is_object($query)) {
-        return true;
-      } else {
-        return false;
-      }
+      return $this->database->getConnection()
+                            ->prepare($sql)
+                            ->execute($values);
 
     } else {
       $this->errors[] = "El correo ya esta en uso!";
@@ -221,19 +223,14 @@ class user
     $sql .= 'WHERE  id = :id ';
 
     $values = [
-      'name'      => $this->name, 
-      'last_name' => $this->lastName, 
-      'email'     => $this->email,  
-      'id'        => $this->id
+      ':id'         => $this->id, 
+      ':name'       => $this->name, 
+      ':last_name'  => $this->lastName, 
+      ':email'      => $this->email
     ];
 
-    $result = $this->database->query($sql, $values);
-
-    if (is_object($result)) {
-      return true;
-    } else {
-      return false;
-    }
+    return $this->database->getConnection()->prepare($sql)
+                                           ->execute($values);
   }
 
   /**
@@ -241,7 +238,7 @@ class user
   * 
   * @return boolean
   */
-  public function changeStatus()
+  public function ActivateOrInactivate()
   {
     $sql  = 'UPDATE users ';
     $sql .= 'SET    status = :status, ';
@@ -250,11 +247,11 @@ class user
 
     $values = [
       'status' => $this->status, 
-      'id'     => $this->id
+      ':id'     => $this->id
     ];
 
-    $result = $this->database->query($sql, $values)->execute();
-    return $result ? true : false;
+    return $this->database->getConnection()->prepare($sql)
+                                           ->execute($values);
   }
 
   /**

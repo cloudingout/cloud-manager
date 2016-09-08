@@ -60,7 +60,7 @@ class AuthController
         $authenticate = $this->auth->authenticate();
         
         if ($authenticate) {
-          $this->middlesbrough->redirect(URL . "users");
+          $this->middlesbrough->redirect("users");
         } else {
           return $this->middlesbrough->isErrors();
         }
@@ -76,6 +76,6 @@ class AuthController
   public function logout()
   {
     auth::logout();
-    $this->middlesbrough->redirect(URL . "home");
+    $this->middlesbrough->redirect("auth");
   }
 }

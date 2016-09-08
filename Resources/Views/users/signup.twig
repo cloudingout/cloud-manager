@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Material Design fonts -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Import Bootstrap Material Design -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- Import flexboxgrid -->
+  <link rel="stylesheet" href="{{ assets }}css/flexboxgrid.css">
+  <!-- Import my css style -->
+  <link rel="stylesheet" href="{{ assets }}css/main.css">
+  <meta charset="utf-8">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Cloud Manager - Regístrate</title>
+</head>
+<body>
+  <div class="full-height full-width teal">
+    <div class="container">
+    <div class="row middle-xs large-top relative">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Regístrate</div>
+                  <div class="panel-body">
+                      <form class="form-horizontal" role="form" method="POST" action="">
+
+                          <div class="form-group">
+                              <label for="email" class="col-md-4 control-label">Correo Electrónico</label>
+
+                              <div class="col-md-6">
+                                  <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="password" class="col-md-4 control-label">Contraseña</label>
+
+                              <div class="col-md-6">
+                                  <input id="password" type="password" class="form-control" name="password" required>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label for="password" class="col-md-4 control-label">Confirmar Contraseña</label>
+
+                              <div class="col-md-6">
+                                  <input id="password" type="password" class="form-control" name="confirm-password" required>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary" name="iniciar">
+                                Regístrate
+                            </button>
+                          </div>
+                          
+                          <div class="col-md-12"><hr></div>
+                          <div class="col-md-6 col-md-offset-3 text-center">
+                            ¿Ya tienes cuenta?
+                            <a class="btn btn-link" href="../auth">Inicia Sesión</a>
+                          </div>
+                      </form>
+                  </div>
+            </div>
+        </div>
+    </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+  <script>
+      $.material.init();
+  </script>
+</body>
+</html>
