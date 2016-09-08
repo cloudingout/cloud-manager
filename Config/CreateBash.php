@@ -44,13 +44,20 @@ class CreateBash {
 	/*esta metodo se encarga de crear script's en bash deacuerdo al parametro
 	que resiva este metodo */
 
-	private function init($image_name=NULL,$vmname=NULL,$profile)
+	private function init($image_name=NULL,$vmname=NULL,$profile=NULL)
 	{
 		/*
 		No modificar las variables.
 		La primera indica el directorio base donde se guardaran los script's
 		La segunda contine la forma somo se inician los script's bash
 		*/
+		
+		if (!empty($vmname))
+		{
+			$this->info->set('vmname',$vmname);
+		}
+
+		/* Pasando   */
 		if (!empty($image_name) AND !empty($vmname) AND $this->name == "launch")
 		{
 			$this->info->set('vmname',$vmname);
@@ -70,17 +77,30 @@ class CreateBash {
 				$this->content[] = "lxc config device set ". $this->info->get('vmname')." root size ".$this->info->profile($profile)['disk'];
 				$this->content[] = "sleep 2";
 				break;
-			case "":
+			case "stop":
 				/* La variable $this->content contiene el cuerpo del documento bash */
 				$this->content[] = $bash_init;
-				$this->content[] = "";
-				$this->content[] = "";				
+				$this->content[] = "lxc stop ".$this->info->get('vmname');		
+				$this->content[] = "sleep 1";				
 				break;
-			case "":
+			case "start":
 				/* La variable $this->content contiene el cuerpo del documento bash */
 				$this->content[] = $bash_init;
-				$this->content[] = "";
-				$this->content[] = "";				
+				$this->content[] = "lxc start ".$this->info->get('vmname');
+				$this->content[] = "sleep 1";				
+				break;
+			case "delete":
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "lxc stop ".$this->info->get('vmname');
+				$this->content[] = "lxc delete ".$this->info->get('vmname');
+				$this->content[] = "sleep 1";					
+				break;
+			case "snapshot":
+				/* La variable $this->content contiene el cuerpo del documento bash */
+				$this->content[] = $bash_init;
+				$this->content[] = "lxc snapshot ".$this->info->get('vmname');
+				$this->content[] = "sleep 1";					
 				break;
 			case "upgrade":
 				/* La variable $this->content contiene el cuerpo del documento bash */
@@ -91,8 +111,7 @@ class CreateBash {
 			case "update":
 				$this->content[] = $bash_init;
 				$this->content[] = "apt-get update";
-				$this->content[] = "sleep 1";
-				$this->name = "update";	
+				$this->content[] = "sleep 1";				
 				break;
 			}
 
@@ -112,11 +131,11 @@ class CreateBash {
 	}
 
 	/* Esta funcion se encarga de ejecutar los script's creados por la funcion anterior*/
-	public function start_bash ($filename,$var1=NULL,$var2=NULL,$profile)
+	public function start_bash ($filename,$vmname=NULL,$image_name=NULL,$profile=NULL)
 	{		
 		$this->name = $filename;
 		/*Ejecutamos el metodo init contenido en este script*/
-		$file = $this->init($var1,$var2,$profile);
+		$file = $this->init($image_name,$vmname,$profile);
 		/*Definimos los parametros del server al que nos conectaremos */
 		$this->remote->add('user','root');
 		$this->remote->add('host','172.16.0.45');
@@ -124,8 +143,15 @@ class CreateBash {
 		#$this->remote->add('key','/home/luisito/Proyectos/cloud-manager/Keys/Key_app.local');
 		/*Ejecutamos el script en el servidor remoto */
 		$retornos = $this->remote->script($file);
+		
+		/* Borramos archivos temporal */		
+		#$removecommand = 'rm -fr '.$file;		
+		$this->remote->add('command','rm -fr '.$file);
+		$this->remote->localExeggutor();
+
 		/*Retornamos el contenido */
 		return $retornos;
+	
 	}
 
 	public function time_script () 

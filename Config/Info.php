@@ -38,6 +38,11 @@ class info {
 	{
 		$this->profile = array(
 
+			"tier0" => array(
+						"ram"  => "256",
+						"cpu"  => "1",
+						"disk" => "10GB" ),
+
 			"tier1" => array(
 						"ram"  => "512",
 						"cpu"  => "1",
