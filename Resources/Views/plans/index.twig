@@ -1,0 +1,52 @@
+{% extends 'index.html' %}
+
+{% block title %} Planes {% endblock %}
+
+{% block content %}
+  <div class="big-padding text-center blue-grey white-text">
+    <h1>Planes <i class="material-icons md-48">book</i></h1>
+  </div>
+
+  <div class="container">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>CPU(S)</th>
+          <th>RAM</th>
+          <th>Disco Duro</th>
+          <th colspan="2" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for plan in data %}
+        <tr>
+          <td>{{ plan.id }}</td>
+          <td>{{ plan.name }}</td>
+          <td>${{ plan.price }} USD</td>
+          <td>{{ plan.processors }}</td>
+          <td>{{ plan.ram }}</td>
+          <td>{{ plan.hard_disk }}</td>
+          <td>
+            <a href="{{ URL }}plans/update/{{ plan.id }}" title="Editar"><i class="material-icons">mode_edit</i> Editar</a>
+          </td>
+          <td>
+            {% if plan.status == 1 %}
+              <a href="{{ URL }}plans/edit/{{ plan.id }}" title="Desactivar"><i class="material-icons">lock_open</i> Desactivar</a>
+            {% else %}
+              <a href="{{ URL }}plans/edit/{{ plan.id }}" title="Activar"><i class="material-icons">lock_outline</i> Activar</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="floating">
+      <a href="{{ URL }}/plans/create" class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,9 +1,9 @@
 <?php
 
 namespace Controllers;
-use Models\User as user;
-use Models\Auth\Auth as auth;
-use App\Middlesbrough as middlesbrough;
+use Models\User as User;
+use Models\Auth\Auth as Auth;
+use App\Middlesbrough as Middlesbrough;
 
 /**
 * Controlador para usuarios
@@ -42,10 +42,10 @@ class UsersController
   */
   public function index()
   {
-    if (auth::isLoggedIn()) {
+    if (Auth::isLoggedIn()) {
       return $this->user->view();
     } else {
-      $this->middlesbrough->redirect(URL . "errors");
+      $this->middlesbrough->redirect("errors");
     }
 
   }
@@ -91,31 +91,35 @@ class UsersController
   */
   public function update($id)
   {
-    $this->user->set('id', (int)$id);
-    if (!$_POST) {
-      return $this->user->findUser();
-    } else {
+    if (Auth::isLoggedIn() && $id == null) {
+      $this->user->set('id', (int)$id);
+      if (!$_POST) {
+        return $this->user->findUser();
+      } else {
 
-      if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
-        if (!empty($_POST['name']) && !empty($_POST['last-name']) && !empty($_POST['email'])) {
-          $this->user->set('name', $_POST['name']);
-          $this->user->set('lastName', $_POST['last-name']);
-          $this->user->set('email', $this->middlesbrough->validateEmail($_POST['email']));
+          if (!empty($_POST['name']) && !empty($_POST['last-name']) && !empty($_POST['email'])) {
+            $this->user->set('name', $_POST['name']);
+            $this->user->set('lastName', $_POST['last-name']);
+            $this->user->set('email', $this->middlesbrough->validateEmail($_POST['email']));
 
-          $errors = $this->middlesbrough->isErrors();
+            $errors = $this->middlesbrough->isErrors();
 
-          if (count($errors) > 0) {
-            return $errors;
+            if (count($errors) > 0) {
+              return $errors;
+            } else {
+              $this->user->update();
+              Middlesbrough::redirect('users');
+            }
           } else {
-            $this->user->update();
-            $this->middlesbrough->redirect('users');
+            $mensaje[] = 'Por favor complete los campos!';
+            return $mensaje;
           }
-        } else {
-          $mensaje[] = 'Por favor complete los campos!';
-          return $mensaje;
         }
       }
+    } else {
+      Middlesbrough::redirect('errors');
     }
   }
 
@@ -127,16 +131,22 @@ class UsersController
   */
   public function edit($id)
   {
-    $this->user->set('id', $id);
-    $result = $this->user->findUser();
+    if (Auth::isLoggedIn()) {
 
-    if ($result['status'] == '1') {
-      $this->user->set('status', '2');
-      $this->user->ActivateOrInactivate();
+      $this->user->set('id', (int) $id);
+      $result = $this->user->findUser();
+
+      if ($result['status'] == '1') {
+        $this->user->set('status', '2');
+        $this->user->ActivateOrInactivate();
+      } else {
+        $this->user->set('status', '1');
+        $this->user->ActivateOrInactivate();
+      }
+      Middlesbrough::redirect('users');
+
     } else {
-      $this->user->set('status', '1');
-      $this->user->ActivateOrInactivate();
+      Middlesbrough::redirect('errors');
     }
-      $this->middlesbrough->redirect('users');
   }
 }

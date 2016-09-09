@@ -161,6 +161,13 @@ textarea {
   width: 100%;
 }
 
+.floating {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  z-index: 100;
+}
+
 .full-height {
   height: 100vh;
 }

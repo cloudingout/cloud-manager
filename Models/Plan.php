@@ -10,7 +10,7 @@ use Config\Database as Database;
 * @package VirtualMachinePlan
 * @author Cristhian David García 
 */
-class VirtualMachinePlan
+class Plan
 {
   /** 
   * Campos de la tabla en la base de datos
@@ -78,18 +78,34 @@ class VirtualMachinePlan
     $sql .= '           a.hard_disk, ';
     $sql .= '           a.price ';
     $sql .= 'FROM       vm_plans AS a ';
-
-    if (!empty($this->id)) {
-    $sql .= 'WHERE      a.id = :id ';
-    }
     $sql .= 'ORDER BY   a.id DESC ';
 
-    $values = ['id' => $this->id];
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetchAll(\PDO::FETCH_ASSOC);
 
-    $result = $this->database->query($sql, $values);
 
-    return (!empty($result)) ? $result : false;
+  }
 
+  /**
+  * Buscar planes por id del plan 
+  *
+  * @return array 
+  */
+  public function findPlan()
+  {
+    $sql  = "SELECT   name, ";
+    $sql .= "         status, ";
+    $sql .= "         processors, ";
+    $sql .= "         ram, ";
+    $sql .= "         hard_disk, ";
+    $sql .= "         price ";
+    $sql .= "FROM     vm_plans ";
+    $sql .= "WHERE    id = $this->id ";
+
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetch(\PDO::FETCH_ASSOC);
   }
 
   /**
@@ -124,9 +140,9 @@ class VirtualMachinePlan
       'price'           => $this->price
     ];
 
-    $query = $this->database->query($sql, $values);
-
-    return ($query) ? true : false;
+    return $this->database->getConnection()
+                          ->prepare($sql)
+                          ->execute($values);
   }
 
   /**
@@ -136,7 +152,7 @@ class VirtualMachinePlan
   */
   public function update()
   {
-    $sql  = '   UPDATE vm_plans ';
+    $sql  = ' UPDATE vm_plans ';
     $sql .= ' SET    name = :name, ';
     $sql .= '        processors = :processors, ';
     $sql .= '        ram = :ram, ';
@@ -146,18 +162,17 @@ class VirtualMachinePlan
     $sql .= ' WHERE  id = :id ';
 
     $values = [
-      'name'        => $this->name, 
-      'processors'  => $this->processors, 
-      'ram'         => $this->ram, 
-      'hard_disk'   => $this->hardDisk, 
-      'price'       => $this->price,
-      'id'          => $this->id, 
-      'status'      => $this->status 
+      ':name'        => $this->name, 
+      ':processors'  => $this->processors, 
+      ':ram'         => $this->ram, 
+      ':hard_disk'   => $this->hardDisk, 
+      ':price'       => $this->price,
+      ':id'          => $this->id
     ];
 
-    $result = $this->database->query($sql, $values);
-
-    return $result ? true : false;
+    return $this->database->getConnection()
+                          ->prepare($sql)
+                          ->execute($values);
   }
 
   /**
@@ -165,21 +180,16 @@ class VirtualMachinePlan
   *
   * @return boolean
   */
-  public function changeStatus()
+  public function activateOrInactivePlan()
   {
     $sql  = 'UPDATE vm_plans ';
     $sql .= 'SET    status = :status, ';
     $sql .= '       update_at = NOW() ';
     $sql .= 'WHERE  id = :id ';
 
-    $values = [
-      'status' => $this->status, 
-      'id'     => $this->id
-    ];
-
-    $result = $this->database->query($sql, $values);
-
-    return $result ? true : false;
+    return $this->database->getConnection()
+                          ->prepare($sql)
+                          ->execute([':status'  => $this->status, ':id' => $this->id]);
   }
 
 }

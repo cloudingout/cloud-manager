@@ -78,7 +78,8 @@ class Bootstrap
     $urlTemplate = ROOT . '..' . DS . 'Resources' . DS . 'Views';
 
     $loader = new \Twig_Loader_Filesystem($urlTemplate);
-    $twig = new \Twig_Environment($loader);
+    $twig = new \Twig_Environment($loader, ['debug' => true]);
+    $twig->addExtension(new \Twig_Extension_Debug());
 
     echo $twig->render($fileSystem, array(
       'data'      => $data,

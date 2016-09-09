@@ -5,6 +5,6 @@
   <title>404 Not Found</title>
 </head>
 <body>
-  <h2>404 Not Found</h2>
+  <h2>404 Not Found - Cloud Manager</h2>
 </body>
 </html>

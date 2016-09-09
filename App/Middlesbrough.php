@@ -159,7 +159,7 @@ class Middlesbrough
   * @access public
   * @return void
   */
-  public function redirect($url)
+  public static function redirect($url)
   {
     header("Location: " . URL . $url);
   }

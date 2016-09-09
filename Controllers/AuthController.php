@@ -1,9 +1,9 @@
 <?php
 
 namespace Controllers;
-use Models\User as user;
-use Models\Auth\Auth as auth;
-use App\Middlesbrough as middlesbrough;
+use Models\User as User;
+use Models\Auth\Auth as Auth;
+use App\Middlesbrough as Middlesbrough;
 
 /**
 * Controlador para el modelo Auth, se encarga de recibir los datos que serán
@@ -50,8 +50,8 @@ class AuthController
   */
   public function index()
   {
-    if (auth::isLoggedIn()) {
-      $this->middlesbrough->redirect(URL . "deploymentvm");
+    if (Auth::isLoggedIn()) {
+      Middlesbrough::redirect("deploymentvm");
     } else {
       if (isset($_POST['login'])) {
         $this->auth->set('email', $this->middlesbrough->validateEmail($_POST['email']));
@@ -60,7 +60,7 @@ class AuthController
         $authenticate = $this->auth->authenticate();
         
         if ($authenticate) {
-          $this->middlesbrough->redirect("users");
+          Middlesbrough::redirect("users");
         } else {
           return $this->middlesbrough->isErrors();
         }
@@ -75,7 +75,7 @@ class AuthController
   */
   public function logout()
   {
-    auth::logout();
-    $this->middlesbrough->redirect("auth");
+    Auth::logout();
+    Middlesbrough::redirect("auth");
   }
 }

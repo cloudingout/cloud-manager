@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+{% block title %} Creación plan{% endblock %}
+
+{% block content %}
+
+<div class="container white">
+  <h1>Crear Plan</h1>
+
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input type="text" name="name" id="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="processors">CPUS</label>
+      <input type="number" name="processors" id="processors" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="ram">RAM</label>
+      <input type="number" name="ram" id="ram" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="hard-disk">Disco duro</label>
+      <input type="number" name="hard-disk" id="hard-disk" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="price">Precio</label>
+      <input type="number" name="price" id="price" class="form-control">
+    </div>
+    <div class="form-group text-right">
+      <a href="{{ URL }}/plans">Regresar a la lista de planes</a>
+      <input class="btn btn-success" type="submit" name="crear_plan" value="Crear Plan">
+    </div>
+  </form>
+
+</div>
+
+{% endblock %}
