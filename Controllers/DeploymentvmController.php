@@ -29,7 +29,7 @@ class DeploymentvmController
 
   public function index(){}
 
-  public function add()
+  public function create()
   {
     if ($_POST) {
       $this->deploy->set('usersID', $_POST['user-id']);
