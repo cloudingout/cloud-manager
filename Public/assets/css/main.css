@@ -149,6 +149,10 @@ textarea {
   text-align: center;
 }
 
+.text-transform-none {
+  text-transform: none;
+}
+
 .title {
   font-size: 2.5em;
 }
