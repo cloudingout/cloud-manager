@@ -58,7 +58,7 @@ class Supermail {
         $this->encabezado[] = 'MIME-Version: 1.0';
         $this->encabezado[] = 'Content-type: text/html; charset=UTF-8';
         $this->encabezado[] = 'From: No Reply <'. $this->get_sender() .'>';      
-        $this->encabezado[] = 'Reply-To: Recipient Name <'.$this->get_recipient().'>';
+        #$this->encabezado[] = 'Reply-To: Recipient Name <'.$this->get_recipient().'>';
         $this->encabezado[] = 'Subject: {'.$this->subject.'}';
         $this->encabezado[] = 'X-Mailer: PHP/'.phpversion();
       } 
@@ -80,10 +80,11 @@ class Supermail {
             $this->body[] = '<html lang="es">';
             $this->body[] = '<head>';
             $this->body[] = '  <meta charset="UTF-8">';
-            $this->body[] = '  <title>Document</title>';
+            $this->body[] = '  <title>Registro Exitoso</title>';
             $this->body[] = '</head>';
             $this->body[] = '<body>';
-            $this->body[] = '';
+            $this->body[] = '<h1>Bienvenido a la comunidad Cloud Colombiana </h1>';
+            $this->body[] = '<p>Para continuar con el registro por favor usa el siguiente link </p>';
             $this->body[] = '</body>';
             $this->body[] = '</html>'; 
             break;
