@@ -1,7 +1,8 @@
 <?php
 
 namespace Controllers;
-use Models\user as user;
+use Models\User as User;
+use Models\Auth\Auth as Auth;
 
 class HomeController
 {
@@ -9,6 +10,6 @@ class HomeController
 
   public function index()
   {
-    //echo 'HomeController';
+    // echo "Hola Mundo";
   }
 }

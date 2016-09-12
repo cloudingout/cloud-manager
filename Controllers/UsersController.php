@@ -91,7 +91,7 @@ class UsersController
   */
   public function update($id)
   {
-    if (Auth::isLoggedIn() && $id == null) {
+    if (Auth::isLoggedIn()) {
       $this->user->set('id', (int)$id);
       if (!$_POST) {
         return $this->user->findUser();

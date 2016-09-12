@@ -9,7 +9,7 @@ use Config\Database as Database;
 * @author Cristhian David García
 */
 
-class DeploymentVM
+class Deploy
 {
   /**
   * Campos de la tabla deployment_vm
@@ -62,6 +62,26 @@ class DeploymentVM
   }
 
   /**
+  * Ver lista de deploys y a que usuarios pertenecen
+  *
+  */
+  public function view()
+  {
+    $sql  = 'SELECT a.id, ';
+    $sql .= '       a.expiry_time, ';
+    $sql .= '       b.name AS user_name, ';
+    $sql .= '       b.last_name, ';
+    $sql .= '       c.name ';
+    $sql .= 'FROM   deployment_vm AS a ';
+    $sql .= 'LEFT JOIN users AS b ON(b.id = a.users_id) ';
+    $sql .= 'LEFT JOIN vm_plans AS c ON(c.id = a.vm_plans_id ) ';
+
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetchAll(\PDO::FETCH_ASSOC);
+  }
+
+  /**
   * Creación o despliegue de una maquina virtual en la base de datos
   *
   *
@@ -82,15 +102,15 @@ class DeploymentVM
     $sql .= ')';
 
     $values = [
-      'id'          => $this->id, 
-      'users_id'    => $this->usersID, 
-      'vm_plans_id' => $this->VMPlansID, 
-      'expiry_time' => $this->expireTime
+      ':id'          => null, 
+      ':users_id'    => $this->usersID, 
+      ':vm_plans_id' => $this->VMPlansID, 
+      ':expiry_time' => $this->expireTime
     ];
 
-    $result = $this->database->query($sql, $values);
-
-    return ($result) ? true : false;
+    return $this->database->getConnection()
+                          ->prepare($sql)
+                          ->execute($values);
   }
 
 }

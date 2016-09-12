@@ -1,3 +1,42 @@
 {% extends 'index.html' %}
 
 {% block title %} Deployment {% endblock %}
+
+{% block content %}
+  <div class="big-padding text-center blue-grey white-text">
+    <h1>Deploy <i class="material-icons">cloud_upload</i></h1>
+  </div>
+  <div class="container">
+    <table class="table table-bordered">
+      <thead>
+        <th>UID</th>
+        <th>Fecha de expiración</th>
+        <th>Propietario</th>
+        <th>Plan</th>
+        <th colspan="2" class="text-center">Acciones</th>
+      </thead>
+      <tbody>
+        {% for deploy in data %}
+        <tr>
+          <td>{{ deploy.id }}</td>
+          <td>{{ deploy.expiry_time }}</td>
+          <td>{{ deploy.user_name }} {{ deploy.last_name}}</td>
+          <td>{{ deploy.name }}</td>
+          <td>
+            <a href="">Editar</a>
+          </td>
+          <td>
+            <a href="">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="floating">
+    <a href="{{ URL }}/deploy/create" class="btn btn-primary btn-fab">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+{% endblock %}
