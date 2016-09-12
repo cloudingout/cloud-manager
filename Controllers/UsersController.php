@@ -4,6 +4,8 @@ namespace Controllers;
 use Models\User as User;
 use Models\Auth\Auth as Auth;
 use App\Middlesbrough as Middlesbrough;
+use App\Supermail as Supermail;
+
 
 /**
 * Controlador para usuarios
@@ -67,7 +69,8 @@ class UsersController
           $create = $this->user->signUp();
           
           if ($create === true) {
-            $this->middlesbrough->redirect("auth");
+            Supermail::trust_email('luispenagos91@gmail.com','prueba','','registro');
+            //Middlesbrough::redirect("auth");
           } else {
             return $this->user->getStatus();
           }
