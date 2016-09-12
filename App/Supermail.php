@@ -53,7 +53,7 @@ class Supermail {
     private function get_header()
     {
       
-      if (empty($this->subject))
+      if (!empty($this->subject))
       {
         $this->encabezado[] = 'MIME-Version: 1.0';
         $this->encabezado[] = 'Content-type: text/html; charset=UTF-8';
@@ -133,11 +133,11 @@ class Supermail {
     {
         $this->set('recipient',$recipient);
         $this->set('subject',$subject);
-        $this->set('sender_mail',$sender_mail)
+        $this->set('sender_mail',$sender_mail);
 
         if ($tipo)
         {
-          mail ($this->get_recipient(),$this->subject, implode("\r\n", $this->get_body($tipo)), implode("\r\n", $this->get_header());            
+          mail ($this->get_recipient(),$this->subject, implode("\r\n", $this->get_body($tipo) ), implode("\r\n", $this->get_header()));            
         }
         
     }
