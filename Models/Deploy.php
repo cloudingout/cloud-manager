@@ -15,6 +15,7 @@ class Deploy
   * Campos de la tabla deployment_vm
   */
   private $id;
+  private $name;
   private $usersID;
   private $VMPlansID;
   private $expireTime;
@@ -69,6 +70,7 @@ class Deploy
   {
     $sql  = 'SELECT a.id, ';
     $sql .= '       a.expiry_time, ';
+    $sql .= '       a.name as vmname, ';
     $sql .= '       b.name AS user_name, ';
     $sql .= '       b.last_name, ';
     $sql .= '       c.name ';
@@ -93,11 +95,13 @@ class Deploy
     $sql .= '             id, ';
     $sql .= '             users_id, ';
     $sql .= '             vm_plans_id, ';
+    $sql .= '             name, ';
     $sql .= '             expiry_time ';
     $sql .= ') VALUES ( ';
     $sql .= '             :id, ';
     $sql .= '             :users_id, ';
     $sql .= '             :vm_plans_id, ';
+    $sql .= '             :name, ';
     $sql .= '             :expiry_time ';
     $sql .= ')';
 
@@ -105,6 +109,7 @@ class Deploy
       ':id'          => null, 
       ':users_id'    => $this->usersID, 
       ':vm_plans_id' => $this->VMPlansID, 
+      ':name'        => $this->name, 
       ':expiry_time' => $this->expireTime
     ];
 

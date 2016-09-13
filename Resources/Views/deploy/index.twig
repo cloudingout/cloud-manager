@@ -10,6 +10,7 @@
     <table class="table table-bordered">
       <thead>
         <th>UID</th>
+        <th>Nombre</th>
         <th>Fecha de expiración</th>
         <th>Propietario</th>
         <th>Plan</th>
@@ -19,6 +20,7 @@
         {% for deploy in data %}
         <tr>
           <td>{{ deploy.id }}</td>
+          <td>{{ deploy.vmname }}</td>
           <td>{{ deploy.expiry_time }}</td>
           <td>{{ deploy.user_name }} {{ deploy.last_name}}</td>
           <td>{{ deploy.name }}</td>
