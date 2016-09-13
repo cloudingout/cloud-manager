@@ -83,9 +83,29 @@ class Plan
     return $this->database->getConnection()
                           ->query($sql)
                           ->fetchAll(\PDO::FETCH_ASSOC);
-
-
   }
+
+  /**
+  * Selecciona los vm_plans para mostrar a todos los usuarios
+  * 
+  * @return array 
+  */
+  public function viewForUsers()
+  {
+    $sql  = 'SELECT     a.status, ';
+    $sql .= '           a.description, ';
+    $sql .= '           a.processors, ';
+    $sql .= '           a.ram, ';
+    $sql .= '           a.hard_disk, ';
+    $sql .= '           a.price ';
+    $sql .= 'FROM       vm_plans AS a ';
+    $sql .= 'WHERE      a.id <> 4 ';
+    $sql .= 'ORDER BY   a.id DESC ';
+
+    return $this->database->getConnection()
+                          ->query($sql)
+                          ->fetchAll(\PDO::FETCH_ASSOC);
+  }  
 
   /**
   * Buscar planes por id del plan 

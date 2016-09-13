@@ -1,8 +1,10 @@
 <?php
 
 namespace Controllers;
-use Models\User as User;
+
 use Models\Auth\Auth as Auth;
+
+use Models\Plan as Plan;
 
 class HomeController
 {
@@ -10,6 +12,7 @@ class HomeController
 
   public function index()
   {
-    // echo "Hola Mundo";
+    $plan = new Plan();
+    return $plan->viewForUsers();
   }
 }

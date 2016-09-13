@@ -47,54 +47,24 @@
         </div>
       </div>
       <div class='row top50 relative center-xs'>
-        <div class='col-xs-12 col-md-4'>
-          <div class='box' id="plans">
-            <div class='columns'>
-              <ul class='price'>
-                <li class='header'>Basic</li>
-                <li class='grey'>$3 USD / Mes</li>
-                <li>20GB Almacenamiento</li>
-                <li>512 RAM</li>
-                <li>1 CPU</li>
-                <li>
-                  <a class='btn btn--green white-text' href='#'>Subscribete</a>
-                </li>
-              </ul>
+        {% for plan in data %}
+          <div class='col-xs-12 col-md-4'>
+            <div class='box' id="plans">
+              <div class='columns'>
+                <ul class='price'>
+                  <li class='header'>{{ plan.description }}</li>
+                  <li class='grey'>${{ plan.price }}.00 USD/Mes</li>
+                  <li>{{ plan.hard_disk }}GB Almacenamiento</li>
+                  <li>{{ plan.ram }} RAM</li>
+                  <li>{{ plan.processors }} CPU(S)</li>
+                  <li>
+                    <a class='btn btn--green white-text' href='#'>Subscribete</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <div class='col-xs-12 col-md-4'>
-          <div class='box'>
-            <div class='columns'>
-              <ul class='price'>
-                <li class='header'>Pro</li>
-                <li class='grey'>$10 USD / Mes</li>
-                <li>50GB Almacenamiento</li>
-                <li>1024 RAM</li>
-                <li>2 CPU(S)</li>
-                <li>
-                  <a class='btn btn--green white-text' href='{{ URL }}/signup'>Subscribete</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class='col-xs-12 col-md-4'>
-          <div class='box'>
-            <div class='columns'>
-              <ul class='price'>
-                <li class='header'>Premium</li>
-                <li class='grey'>$15 USD / Mes</li>
-                <li>100GB Almacenamiento</li>
-                <li>2048 RAM</li>
-                <li>2 CPU(S)</li>
-                <li>
-                  <a class='btn btn--green white-text' href='#'>Subscribete</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
 {% endblock %}
