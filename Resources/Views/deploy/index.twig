@@ -2,7 +2,13 @@
 
 {% block title %} Deployment {% endblock %}
 
+{% block bootstrap_material_design %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
+{% endblock %}
+
 {% block content %}
+  {% include 'partials/navigation.html' %}
   <div class="big-padding text-center blue-grey white-text">
     <h1>Deploy <i class="material-icons">cloud_upload</i></h1>
   </div>

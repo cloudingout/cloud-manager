@@ -1,8 +1,14 @@
 {% extends 'index.html' %}
 
-{% block title %}Usuarios - Actualizar{% endblock %}
+{% block title %} Usuarios - Editar{% endblock %}
+
+{% block bootstrap_material_design %} 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
+{% endblock %}
 
 {% block content %}
+{% include 'partials/navigation.html' %}
 <div class="container white">
   <form action="" method="POST">
     <h1>Editar Usuario</h1>

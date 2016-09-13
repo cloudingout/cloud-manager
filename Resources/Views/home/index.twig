@@ -1,30 +1,100 @@
-<!DOCTYPE html>
-<html lang='es'>
-  <head>
-    <meta charset='utf8'>
-    <title>Cloud Manager</title>
-    <meta content='Cloud manager, administración de servidores' name='description'>
-    <meta content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' name='viewport'>
-    <link rel="shortcut icon" href="http://server3.metin2renacer.com/images/code.png">
-    <link href='http://server3.metin2renacer.com/assets/css/main.css' rel='stylesheet'>
-  </head>
-  <body>
-    <!--[if lt IE 9]>
-    <p class='browserupgrade'>
-      Estas usando un navegador
-      <strong>desactualizado</strong>
-      Por favor
-      <a href='http://browsehappy.com/'>
-        actualiza tu navegador
-      </a>
-      para una mejor experiencia
-    </p>
-    <![endif]-->
+{% extends 'index.html' %}
+
+{% block content %}
     <div class='video-container'>
-      <video autoplay height='720' loop poster='http://server3.metin2renacer.com/videos/imgs/airtaxi.jpg' width='120'>
+      <video autoplay height='720' loop poster='http://server3.metin2renacer.com/videos/imgs/airtaxi.jpg' width='1280'>
         <source src='http://server3.metin2renacer.com/videos/mp4/airtaxi.mp4' type='video/mp4'>
         <source src='http://server3.metin2renacer.com/videos/webm/airtaxi.webm' type='video/webm'>
       </video>
     </div>
-  </body>
-</html>
+    <div class='row full-height middle-xs center-xs relative up'>
+      <div class='col-xs-12'>
+        <div class='box white-text'>
+          <img alt='logo' src='./images/icloud.png' width='200'>
+          <h1 class='lato title no-margin'>Cloud Manager</h1>
+          <p class='medium' id='slogan'>Frontend de administración de VPS en Linux</p>
+        </div>
+      </div>
+      <nav class='fixed white-text navigation full-width top0' id='navigation'>
+        <ul class='list-inline'>
+          <li class='small'>
+            <a href='#'>Cloud Manager</a>
+          </li>
+          <li class='small'>
+            <a href='#'>Inicio</a>
+          </li>
+          <li class='small'>
+            <a href='#plans'>Planes</a>
+          </li>
+          <li class='small'>
+            <a href='#'>Subscribe</a>
+          </li>
+          <li class='small'>
+            <a href='#'>Login</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class='full-height'>
+      <div class='row middle-xs center-xs top relative'>
+        <div class='col-xs-12'>
+          <div class='box'>
+            <h3 class='h3'>Admin CM</h3>
+            <p class='small'>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit quaerat maxime, quia! Saepe tenetur ipsum officiis commodi soluta, nihil ab asperiores unde eaque, doloribus. Excepturi sint, nobis commodi voluptatem officiis! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas, iure omnis magnam labore. Sed maiores obcaecati quod aperiam expedita dignissimos accusantium beatae velit tempore asperiores! Voluptas optio quis, minus.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class='row top50 relative center-xs'>
+        <div class='col-xs-12 col-md-4'>
+          <div class='box' id="plans">
+            <div class='columns'>
+              <ul class='price'>
+                <li class='header'>Basic</li>
+                <li class='grey'>$3 USD / Mes</li>
+                <li>20GB Almacenamiento</li>
+                <li>512 RAM</li>
+                <li>1 CPU</li>
+                <li>
+                  <a class='btn btn--green white-text' href='#'>Subscribete</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class='col-xs-12 col-md-4'>
+          <div class='box'>
+            <div class='columns'>
+              <ul class='price'>
+                <li class='header'>Pro</li>
+                <li class='grey'>$10 USD / Mes</li>
+                <li>50GB Almacenamiento</li>
+                <li>1024 RAM</li>
+                <li>2 CPU(S)</li>
+                <li>
+                  <a class='btn btn--green white-text' href='{{ URL }}/signup'>Subscribete</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class='col-xs-12 col-md-4'>
+          <div class='box'>
+            <div class='columns'>
+              <ul class='price'>
+                <li class='header'>Premium</li>
+                <li class='grey'>$15 USD / Mes</li>
+                <li>100GB Almacenamiento</li>
+                <li>2048 RAM</li>
+                <li>2 CPU(S)</li>
+                <li>
+                  <a class='btn btn--green white-text' href='#'>Subscribete</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
