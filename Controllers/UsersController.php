@@ -4,6 +4,8 @@ namespace Controllers;
 use Models\User as User;
 use Models\Auth\Auth as Auth;
 use App\Middlesbrough as Middlesbrough;
+use App\Supermail as Supermail;
+
 
 /**
 * Controlador para usuarios
@@ -26,6 +28,12 @@ class UsersController
   private $middlesbrough;
 
   /**
+  * Almacena la instancia del módelo Supermail
+  * @var $supermail
+  */
+  private $supermail;
+
+  /**
   * Constructor - Obtiene el módelo User
   * @return void
   */
@@ -33,6 +41,7 @@ class UsersController
   {
     $this->user = new User();
     $this->middlesbrough = new Middlesbrough();
+    $this->supermail = new Supermail();
   }
 
   /**
@@ -67,7 +76,8 @@ class UsersController
           $create = $this->user->signUp();
           
           if ($create === true) {
-            $this->middlesbrough->redirect("auth");
+            $this->supermail->trust_email($this->user->get('email'),'Registro Exitoso',null,'registro');
+            //Middlesbrough::redirect("auth");
           } else {
             return $this->user->getStatus();
           }
