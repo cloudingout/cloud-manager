@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="full-height full-width teal">
+  <div class="full-height full-width green">
     <div class="container">
     <div class="row middle-xs large-top relative">
         <div class="col-md-6 col-md-offset-3">
@@ -17,11 +17,16 @@
                   <div class="panel-body">
                       <form class="form-horizontal" role="form" method="POST" action="">
 
-                          <div class="form-group">
+                          <div class="form-group {% if data.email is not empty %} has-error {% endif %}">
                               <label for="email" class="col-md-4 control-label">Correo Electrónico</label>
 
                               <div class="col-md-6">
-                                  <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                  <input id="email" type="email" class="form-control" name="email" value="{{ post.email }}" required autofocus>
+                                  {% if data.email is not empty %}
+                                    <span>
+                                      <strong class="has-error">{{ data.email }}</strong>
+                                    </span>
+                                  {% endif %}
                               </div>
                           </div>
 
@@ -45,7 +50,13 @@
                               </label>
                             </div>
                           </div>
-                          
+                          {% if data.no_match is not empty %}
+                            <div class="col-xs-12 text-center">
+                              <span>
+                                <strong class="has-error">{{ data.no_match }}</strong>
+                              </span>
+                            </div>
+                          {% endif %}
                           <div class="col-md-12"><hr></div>
                           <div class="col-md-6 text-center">
                             ¿Aún no estas registrado(a)?

@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="full-height full-width teal">
+  <div class="full-height full-width green">
     <div class="container">
     <div class="row middle-xs large-top relative">
         <div class="col-md-6 col-md-offset-3">
@@ -21,7 +21,7 @@
 
                               <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ post.email }}" required autofocus>
-                                {% if data is not empty %}
+                                {% if data.email is not empty %}
                                   <span>
                                     <strong class="has-error">{{ data.email }}</strong>
                                   </span>

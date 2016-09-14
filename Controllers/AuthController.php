@@ -57,10 +57,17 @@ class AuthController
         $this->auth->set('email', $this->middlesbrough->validateEmail($_POST['email']));
         $this->auth->set('password', $_POST['password']);
 
-        $authenticate = $this->auth->authenticate();
-        
-        if ($authenticate) {
-          Middlesbrough::redirect("users");
+        if (empty($this->middlesbrough->isErrors())) {
+
+          $authenticate = $this->auth->authenticate();
+          
+          if ($authenticate) {
+            Middlesbrough::redirect("users");
+          } else {
+            $mensaje['no_match'] = "Estas credenciales no coinciden con nuestros registros!";
+            return $mensaje;
+          }
+
         } else {
           return $this->middlesbrough->isErrors();
         }
