@@ -27,10 +27,10 @@
             <a href='#plans'>Planes</a>
           </li>
           <li class='small'>
-            <a href='#'>Subscribe</a>
+            <a href='{{ URL }}/users/signup'>Suscríbete</a>
           </li>
           <li class='small'>
-            <a href='#'>Login</a>
+            <a href='{{ URL }}/auth'>Login</a>
           </li>
         </ul>
       </nav>
@@ -46,25 +46,27 @@
           </div>
         </div>
       </div>
-      <div class='row top50 relative center-xs'>
-        {% for plan in data %}
-          <div class='col-xs-12 col-md-4'>
-            <div class='box' id="plans">
-              <div class='columns'>
-                <ul class='price'>
-                  <li class='header'>{{ plan.description }}</li>
-                  <li class='grey'>${{ plan.price }}.00 USD/Mes</li>
-                  <li>{{ plan.hard_disk }}GB Almacenamiento</li>
-                  <li>{{ plan.ram }} RAM</li>
-                  <li>{{ plan.processors }} CPU(S)</li>
-                  <li>
-                    <a class='btn btn--green white-text' href='#'>Subscribete</a>
-                  </li>
-                </ul>
+      <div class="container">
+        <div class='row top50 relative center-xs'>
+          {% for plan in data %}
+            <div class='col-xs-12 col-md-4'>
+              <div class='box' id="plans">
+                <div class='columns'>
+                  <ul class='price'>
+                    <li class='header'>{{ plan.description }}</li>
+                    <li class='grey'>${{ plan.price }}.00 USD/Mes</li>
+                    <li>{{ plan.hard_disk }}GB Almacenamiento</li>
+                    <li>{{ plan.ram }} RAM</li>
+                    <li>{{ plan.processors }} CPU(S)</li>
+                    <li class='grey'>
+                      <a class='btn btn--green white-text' href='{{ URL }}/users/signup'>Suscríbete</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
     </div>
 {% endblock %}

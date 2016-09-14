@@ -87,7 +87,8 @@ class Bootstrap
       'assets'    => ASSETS, 
       'sessions'  => $sessions, 
       'errors'    => $errors, 
-      'request'   => $requesMethod
+      'request'   => $requesMethod, 
+      'post'      => $_POST
     ));
   }
 }

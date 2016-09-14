@@ -16,28 +16,36 @@
                 <div class="panel-heading">Regístrate</div>
                   <div class="panel-body">
                       <form class="form-horizontal" role="form" method="POST" action="">
-
-                          <div class="form-group">
+                          <div class="form-group {% if data.email is not empty %} has-error {% endif %}">
                               <label for="email" class="col-md-4 control-label">Correo Electrónico</label>
 
                               <div class="col-md-6">
-                                  <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ post.email }}" required autofocus>
+                                {% if data is not empty %}
+                                  <span>
+                                    <strong class="has-error">{{ data.email }}</strong>
+                                  </span>
+                                {% endif %}
                               </div>
                           </div>
 
-                          <div class="form-group">
+                          <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
                               <label for="password" class="col-md-4 control-label">Contraseña</label>
-
                               <div class="col-md-6">
-                                  <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" type="password" class="form-control" name="password" required>
                               </div>
                           </div>
 
-                          <div class="form-group">
+                          <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
                               <label for="password" class="col-md-4 control-label">Confirmar Contraseña</label>
 
                               <div class="col-md-6">
                                   <input id="password" type="password" class="form-control" name="confirm-password" required>
+                                  {% if data.no_match_passwords is not empty %}
+                                    <span>
+                                      <strong class="has-error">{{ data.no_match_passwords }}</strong>
+                                    </span>
+                                  {% endif %}
                               </div>
                           </div>
 
@@ -46,7 +54,23 @@
                                 Regístrate
                             </button>
                           </div>
-                          
+                          {% if data.empty_fields is not empty %}
+
+                            <div class="col-xs-12 text-center">
+                              <span>
+                                <strong class="has-error">{{ data.empty_fields }}</strong>
+                              </span>
+                            </div>
+
+                          {% else %}
+
+                            <div class="col-xs-12 text-center">
+                              <span>
+                                <strong class="has-error">{{ data.user_exist }}</strong>
+                              </span>
+                            </div>
+
+                          {% endif %}
                           <div class="col-md-12"><hr></div>
                           <div class="col-md-12 text-center">
                             ¿Ya tienes cuenta?

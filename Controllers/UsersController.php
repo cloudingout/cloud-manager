@@ -68,25 +68,39 @@ class UsersController
   public function signUp()
   {
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
       if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm-password'])) {
+
         if ($_POST['confirm-password'] == $_POST['password']) {
+
           $this->user->set("email", $this->middlesbrough->validateEmail($_POST['email']));
           $this->user->set("password", $_POST['password']);
 
           $create = $this->user->signUp();
-          
-          if ($create === true) {
-            $this->supermail->trust_email($this->user->get('email'),'Registro Exitoso',null,'registro');
-            //Middlesbrough::redirect("auth");
+
+          if (empty($this->middlesbrough->isErrors())) {
+
+            if ($create === true) {
+              $this->supermail->trust_email($this->user->get('email'),'Registro Exitoso',null,'registro');
+              Middlesbrough::redirect("auth");
+            } else {
+
+              return $this->user->getStatus();
+
+            }
+            
           } else {
-            return $this->user->getStatus();
+            return $this->middlesbrough->isErrors();
           }
+
+
         } else {
-          $mensaje[] = "Las contraseñas no coinciden!";
+          $mensaje['no_match_passwords'] = "Las contraseñas no coinciden!";
           return $mensaje;
         }
+
       } else {
-        $mensaje[] = "Por favor complete los campos";
+        $mensaje['empty_fields'] = "Por favor complete los campos!";
         return $mensaje;
       }
 

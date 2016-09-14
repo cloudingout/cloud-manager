@@ -90,7 +90,7 @@ class Middlesbrough
     $email = $this->cleaningCharacters($email);
     
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $this->errors[] = "Por favor proporcione un correo electrónico válido";
+      $this->errors['email'] = "El correo electrónico debe ser una dirección de correo electrónico válida!";
       return false;
     } else {
       return $email;

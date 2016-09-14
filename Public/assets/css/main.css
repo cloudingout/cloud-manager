@@ -236,6 +236,10 @@ textarea {
   color: white;
 }
 
+.has-error {
+  color: #a94442;
+}
+
 .lato {
   font-family: 'Lato', sans-serif;
 }

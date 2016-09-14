@@ -203,7 +203,7 @@ class user
                             ->execute($values);
 
     } else {
-      $this->errors[] = "El correo ya esta en uso!";
+      $this->errors['user_exist'] = "El email ya ha sido registrado!";
       return false;
     }
   }
