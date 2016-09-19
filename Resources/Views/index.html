@@ -14,7 +14,8 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- Import Bootstrap Material Design -->
-    {% block bootstrap_material_design %} {% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
     
     <!-- Flexboxgrid -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" rel="stylesheet">
@@ -38,7 +39,59 @@
       para una mejor experiencia!
     </p>
     <! [endif] -->
-    {% block content %} {% endblock content %}
+
+   <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Cloud Manager</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <b>Hola</b>, {{ sessions.name }} <span class="caret"></span>
+
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Ayuda</a></li>
+                  <li><a href="#">Configuración</a></li>
+                  <li><a href="{{ URL }}/auth/logout">Cerrar Sesión</a></li>
+                </ul>
+              </a>
+            </li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Buscar...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid no-padding">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar no-padding">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+            <li><a href="{{ URL }}/users">Usuarios</a></li>
+            <li><a href="{{ URL }}/plans">Planes</a></li>
+            <li><a href="{{ URL }}/deploy">Deploy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-sm-9 col-md-10 col-sm-offset-3 col-md-offset-2 main">
+          <h1 class="page-header divider">Dashboard</h1>
+          
+          {% block content %} {% endblock content %}
+        </div> 
+      </div>
+    </div>
+
      <!-- Scripts -->
     <script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->

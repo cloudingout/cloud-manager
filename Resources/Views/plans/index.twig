@@ -2,22 +2,13 @@
 
 {% block title %} Planes {% endblock %}
 
-{% block bootstrap_material_design %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-{% endblock %}
-
 {% block content %}
-  {% include "partials/navigation.html" %}
-  <div class="big-padding text-center blue-grey white-text">
-    <h1>Planes <i class="material-icons md-48">book</i></h1>
-  </div>
-
-  <div class="container">
-    <table class="table table-bordered">
+  <h2 class="divider">Planes</h1>
+  
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>UID</th>
+          <th>#</th>
           <th>Nombre</th>
           <th>Precio</th>
           <th>CPU(S)</th>
@@ -34,8 +25,8 @@
           <td>{{ plan.name }}</td>
           <td>${{ plan.price }} USD</td>
           <td>{{ plan.processors }}</td>
-          <td>{{ plan.ram }}</td>
-          <td>{{ plan.hard_disk }}</td>
+          <td>{{ plan.ram }}MB</td>
+          <td>{{ plan.hard_disk }}GB</td>
           <td>
             <a href="{{ URL }}plans/update/{{ plan.id }}" title="Editar"><i class="material-icons">mode_edit</i> Editar</a>
           </td>
@@ -54,5 +45,4 @@
     <div class="floating">
       <a href="{{ URL }}/plans/create" class="btn btn-primary btn-fab"><i class="material-icons">add</i></a>
     </div>
-  </div>
 {% endblock %}

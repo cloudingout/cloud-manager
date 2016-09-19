@@ -1,44 +1,36 @@
 {% extends 'index.html' %}
 
 {% block title %} - Editar plan {% endblock %}
-{% block bootstrap_material_design %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-{% endblock %}
 
 {% block content %}
-{% include "partials/navigation.html" %}
-<div class="container white">
-    <h1>Editar plan </h1>
+  <h2 class="divider">Editar plan</h2>
 
-    <form action="" method="POST">
-        <div class="form-group">
-          <label for="name">Nombre</label>
-          <input type="text" name="name" id="name" value="{{ data.name }}" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="cpu">CPU</label>
-          <input type="number" name="cpu" id="cpu" value="{{ data.processors }}" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="ram">RAM</label>
-          <input type="number" name="ram" id="ram" value="{{ data.ram }}" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="hard-disk">Disco Duro</label>
-          <input type="number" name="hard-disk" id="hard-disk" value="{{ data.hard_disk}}" class="form-control">
-        </div>
-        <div class="">
-          <label for="price">Precio: </label>
-          <input type="number" name="price" id="price" value="{{ data.price }}" class="form-control">
-        </div>
-        <div class="form-group text-right">
-          <a href="{{ URL }}/plans">Regresar a la lista de planes</a>
-          <button class="btn btn-success" type="submit" name="update">
-            Actualizar
-          </button>
-        </div>
-    </form>
-    
-</div>
+  <form action="" method="POST">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" id="name" value="{{ data.name }}" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="cpu">CPU</label>
+        <input type="number" name="cpu" id="cpu" value="{{ data.processors }}" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="ram">RAM</label>
+        <input type="number" name="ram" id="ram" value="{{ data.ram }}" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="hard-disk">Disco Duro</label>
+        <input type="number" name="hard-disk" id="hard-disk" value="{{ data.hard_disk}}" class="form-control">
+      </div>
+      <div class="">
+        <label for="price">Precio: </label>
+        <input type="number" name="price" id="price" value="{{ data.price }}" class="form-control">
+      </div>
+      <div class="form-group text-right">
+        <a href="{{ URL }}/plans">Regresar a la lista de planes</a>
+        <button class="btn btn-success" type="submit" name="update">
+          Actualizar
+        </button>
+      </div>
+  </form>
 {% endblock %}

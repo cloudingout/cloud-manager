@@ -2,16 +2,9 @@
 
 {% block title %} Deploy {% endblock %}
 
-{% block bootstrap_material_design %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-{% endblock %}
-
 {% block content %}
-
-{% include 'partials/navigation.html' %}
-<div class="container white">
-  <h1>Deploy</h1>
+  <h2 class="divider">Deploy</h2>
+  
   <form action="" method="POST">
     <div class="form-group">
       <label for="vm-plans">Planes</label>
@@ -35,6 +28,5 @@
       <input class="btn btn-success" type="submit" name="buy" value="Enviar">
     </div>
   </form>
-</div>
 
 {% endblock %}

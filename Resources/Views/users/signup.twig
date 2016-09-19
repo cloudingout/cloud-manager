@@ -1,88 +1,121 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+  <head>
+    <title>Cloud Manager {% block title %} {% endblock title %}</title>
+    <meta charset="utf-8">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta content="Front End de administracion de VPS en Linux" name="description">
 
-{% block title %} - Regístrate {% endblock %}
+    <link href="/images/code.png" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <!-- Normalize -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-{% block bootstrap_material_design %} 
+    <!-- Import Bootstrap Material Design -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-{% endblock %}
+    
+    <!-- Flexboxgrid -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" rel="stylesheet">
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Import my css style -->
+    <link rel="stylesheet" href="{{ assets }}css/main.css">
+    <!-- Modernizr -->
+    <scrip src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></scrip>
+  </head>
 
-{% block content %}
-  <div class="full-height full-width green">
-    <div class="container">
-    <div class="row middle-xs large-top relative">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Regístrate</div>
-                  <div class="panel-body">
-                      <form class="form-horizontal" role="form" method="POST" action="">
-                          <div class="form-group {% if data.email is not empty %} has-error {% endif %}">
-                              <label for="email" class="col-md-4 control-label">Correo Electrónico</label>
+  <body>
 
-                              <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ post.email }}" required autofocus>
-                                {% if data.email is not empty %}
-                                  <span>
-                                    <strong class="has-error">{{ data.email }}</strong>
-                                  </span>
-                                {% endif %}
-                              </div>
-                          </div>
+    <div class="full-height full-width green">
+      <div class="container">
+      <div class="row middle-xs large-top relative">
+          <div class="col-md-6 col-md-offset-3">
+              <div class="panel panel-default">
+                  <div class="panel-heading">Regístrate</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" role="form" method="POST" action="">
+                            <div class="form-group {% if data.email is not empty %} has-error {% endif %}">
+                                <label for="email" class="col-md-4 control-label">Correo Electrónico</label>
 
-                          <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
-                              <label for="password" class="col-md-4 control-label">Contraseña</label>
-                              <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-                              </div>
-                          </div>
-
-                          <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
-                              <label for="password" class="col-md-4 control-label">Confirmar Contraseña</label>
-
-                              <div class="col-md-6">
-                                  <input id="password" type="password" class="form-control" name="confirm-password" required>
-                                  {% if data.no_match_passwords is not empty %}
+                                <div class="col-md-6">
+                                  <input id="email" type="email" class="form-control" name="email" value="{{ post.email }}" required autofocus>
+                                  {% if data.email is not empty %}
                                     <span>
-                                      <strong class="has-error">{{ data.no_match_passwords }}</strong>
+                                      <strong class="has-error">{{ data.email }}</strong>
                                     </span>
                                   {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
+                                <label for="password" class="col-md-4 control-label">Contraseña</label>
+                                <div class="col-md-6">
+                                  <input id="password" type="password" class="form-control" name="password" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group {% if data.no_match_passwords is not empty %} has-error {% endif %}">
+                                <label for="password" class="col-md-4 control-label">Confirmar Contraseña</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="confirm-password" required>
+                                    {% if data.no_match_passwords is not empty %}
+                                      <span>
+                                        <strong class="has-error">{{ data.no_match_passwords }}</strong>
+                                      </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-md-offset-4">
+                              <button type="submit" class="btn btn-primary text-transform-none" name="iniciar">
+                                  Regístrate
+                              </button>
+                            </div>
+                            {% if data.empty_fields is not empty %}
+
+                              <div class="col-xs-12 text-center">
+                                <span>
+                                  <strong class="has-error">{{ data.empty_fields }}</strong>
+                                </span>
                               </div>
-                          </div>
 
-                          <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary text-transform-none" name="iniciar">
-                                Regístrate
-                            </button>
-                          </div>
-                          {% if data.empty_fields is not empty %}
+                            {% else %}
 
-                            <div class="col-xs-12 text-center">
-                              <span>
-                                <strong class="has-error">{{ data.empty_fields }}</strong>
-                              </span>
+                              <div class="col-xs-12 text-center">
+                                <span>
+                                  <strong class="has-error">{{ data.user_exist }}</strong>
+                                </span>
+                              </div>
+
+                            {% endif %}
+                            <div class="col-md-12"><hr></div>
+                            <div class="col-md-12 text-center">
+                              ¿Ya tienes cuenta?
                             </div>
-
-                          {% else %}
-
-                            <div class="col-xs-12 text-center">
-                              <span>
-                                <strong class="has-error">{{ data.user_exist }}</strong>
-                              </span>
+                            <div class="col-md-12 text-center">
+                              <a class="btn btn-link text-transform-none" href="../auth">Inicia Sesión</a>
                             </div>
-
-                          {% endif %}
-                          <div class="col-md-12"><hr></div>
-                          <div class="col-md-12 text-center">
-                            ¿Ya tienes cuenta?
-                          </div>
-                          <div class="col-md-12 text-center">
-                            <a class="btn btn-link text-transform-none" href="../auth">Inicia Sesión</a>
-                          </div>
-                      </form>
-                  </div>
-            </div>
-        </div>
+                        </form>
+                    </div>
+              </div>
+          </div>
+      </div>
+      </div>
     </div>
-    </div>
-  </div>
-{% endblock %}
+     <!-- Scripts -->
+    <script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+    <script>
+        window.jQuery || document.write("<script src='{{ assets }}js/jquery.min.js'><\/script>");
+    </script>
+    <script src="{{ assets }}js/main.js"></script>
+  </body>
+</html>

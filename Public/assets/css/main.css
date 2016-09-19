@@ -61,6 +61,7 @@ html, body {
   line-height: 1.4;
   height: 100%;
   width: 100%;
+  background-color: #fff;
 }
 
 /*
@@ -152,6 +153,23 @@ textarea {
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
+
+.sidebar {
+  margin-top: 60px;
+  height: 100vh;
+  position: fixed;
+  background-color: #f5f5f5;
+}
+
+.sidebar .nav li a { color: #222; }
+
+.sidenav a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    transition: 0.3s
+}
+
 .navigation {
   background-color: #333;
 }
@@ -189,6 +207,11 @@ textarea {
           transition: .3s;
 }
 
+.page-header {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+}
+
 .columns .price li {
   border-bottom: 1px solid #eee;
   padding: 20px;
@@ -219,6 +242,20 @@ textarea {
   font-weight: bold;
   border: none;
   padding: 10px 15px;
+}
+
+h2.divider { padding: 10px 0; }
+
+.user-data {
+  padding: 1em;
+  text-align: center;
+  border-right: 1px solid #222;
+}
+
+.user-data span {
+  display: block;
+  font-size: 2.2em;
+  color: #009688;
 }
 
 /* ==========================================================================
@@ -258,6 +295,11 @@ textarea {
 
 .h3 {
   font-size: 3em;
+}
+
+.main {
+  padding-top: 40px;
+  padding-left: 20px;
 }
 
 .large-padding, .btn {
@@ -373,6 +415,10 @@ textarea {
 
 .no-padding {
   padding: 0;
+}
+
+.divider {
+  border-bottom: 1px solid #ddd;
 }
 
 .li-style-none {

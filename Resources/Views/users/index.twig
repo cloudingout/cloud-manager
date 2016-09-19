@@ -1,34 +1,29 @@
 {% extends 'index.html' %}
 
-{% block title %}Usuarios{% endblock %}
-
-{% block bootstrap_material_design %} 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.min.css">
-{% endblock %}
-
 {% block content %}
-  
-  {% include "partials/navigation.html" %}
 
-  <div class="big-padding text-center blue-grey white-text">
-    <h1>Usuarios <i class="material-icons md-48">supervisor_account</i></h1>
-  </div>
+    <div class="row">
+      <div class="col-xs-4 col-md-3 col-lg-2 user-data">
+        <span>4</span>
+        Usuarios registrados
+      </div>
+    </div>
 
-  <div class="container">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>UID</th>
-          <th>Rol</th>
-          <th>Nombres</th>
-          <th>Correo Electrónico</th>
-          <th>Saldo</th>
-          <th colspan="2" class="text-center">Acciones</th>
-        </tr>
-      </thead>
+    <h2 class="divider">Usuarios</h2>
 
-      <tbody>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Rol</th>
+            <th>Nombres</th>
+            <th>Correo Electrónico</th>
+            <th>Saldo</th>
+            <th colspan="2">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
         {% for user in data %}
         <tr>
           <td>{{ user.id }}</td>
@@ -49,6 +44,6 @@
         </tr>
         {% endfor %}
       </tbody>
-    </table>
-  </div>
+      </table>
+    </div>
 {% endblock %}

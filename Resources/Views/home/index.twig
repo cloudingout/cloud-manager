@@ -1,6 +1,31 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
+<html class="no-js" lang="es">
+  <head>
+    <title>Cloud Manager {% block title %} {% endblock title %}</title>
+    <meta charset="utf-8">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta content="Front End de administracion de VPS en Linux" name="description">
 
-{% block content %}
+    <link href="/images/code.png" rel="shortcut icon">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700" rel="stylesheet">
+    <!-- Normalize -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- Flexboxgrid -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" rel="stylesheet">
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Import my css style -->
+    <link rel="stylesheet" href="{{ assets }}css/main.css">
+    <!-- Modernizr -->
+    <scrip src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></scrip>
+  </head>
+
+  <body>
+
     <div class='video-container'>
       <video autoplay height='720' loop poster='http://server3.metin2renacer.com/videos/imgs/airtaxi.jpg' width='1280'>
         <source src='http://server3.metin2renacer.com/videos/mp4/airtaxi.mp4' type='video/mp4'>
@@ -69,4 +94,15 @@
         </div>
       </div>
     </div>
-{% endblock %}
+     <!-- Scripts -->
+    <script src="http://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+    <script>
+        window.jQuery || document.write("<script src='{{ assets }}js/jquery.min.js'><\/script>");
+    </script>
+    <script src="{{ assets }}js/main.js"></script>
+  </body>
+</html>
